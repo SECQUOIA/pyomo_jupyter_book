@@ -1,0 +1,30 @@
+
+format: jb-book
+root: intro
+chapters:
+- file: Material/Pyomo Fundamentals
+  sections:
+  - file: Material/Pyomo Fundamentals/Exercises 1
+    sections:
+    - file: Material/Pyomo Fundamentals/1.1 Knapsack Example
+    - file: Material/Pyomo Fundamentals/1.2 Knapsack with improved printing
+    - file: Material/Pyomo Fundamentals/1.3 Changing data
+    - file: Material/Pyomo Fundamentals/1.4 Loading data from Excel
+    - file: Material/Pyomo Fundamentals/1.5 NLP vs MIP
+  - file: Material/Pyomo Fundamentals/Exercises 2
+    sections:
+    - file: Material/Pyomo Fundamentals/2.1 Knapsack problem with rules
+    - file: Material/Pyomo Fundamentals/2.2 Integer formulation of the knapsack problem
+  - file: Material/Pyomo Fundamentals/Exercises 3
+    sections:
+    - file: Material/Pyomo Fundamentals/3.1 Using the decorator notation for rules
+    - file: Material/Pyomo Fundamentals/3.2 Changing Parameter values
+    - file: Material/Pyomo Fundamentals/3.3 Integer cuts
+    - file: Material/Pyomo Fundamentals/3.4 Putting it all together with the lot sizing example
+- file: Material/Nonlinear Exercises
+  sections: 
+  - file: Material/Nonlinear Exercises/1.1 Alternative Initialization
+  - file: Material/Nonlinear Exercises/1.2 Evaluation errors
+  - file: Material/Nonlinear Exercises/1.3 Alternative Formulations
+  - file: Material/Nonlinear Exercises/1.4 Reactor design problem (Hart et al., 2017; Bequette, 2003)
+- file: Material/References
