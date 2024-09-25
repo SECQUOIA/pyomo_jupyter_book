@@ -29,10 +29,10 @@ chapters:
   - file: Material/Nonlinear Exercises/1.4 Reactor design problem (Hart et al., 2017; Bequette, 2003)
 - file: Material/Dynamic Exercises
   sections: 
-  - file: Material/Dynamic Exercises/colloc_matrix
   - file: Material/Dynamic Exercises/param_est1
   - file: Material/Dynamic Exercises/param_est2
   - file: Material/Dynamic Exercises/small_colloc
+  - file: Material/Dynamic Exercises/colloc_matrix
   - file: Material/Dynamic Exercises/small_dae
   - file: Material/Dynamic Exercises/small_findiff
 - file: Material/GDP Exercises
