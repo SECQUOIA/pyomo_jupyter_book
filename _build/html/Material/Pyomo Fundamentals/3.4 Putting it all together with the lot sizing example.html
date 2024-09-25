@@ -211,6 +211,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.3%20Alternative%20Formulations.html">1.3 Alternative Formulations:</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Dynamic%20Exercises.html">Dynamic Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est1.html">Parameter Estimation 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est2.html">Parameter Estimation 2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../GDP%20Exercises.html">GDP Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../GDP%20Exercises/strip_packing.html">Strip Packing</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../References.html">References</a></li>
 </ul>
 
@@ -412,9 +421,9 @@ document.write(`
   <section id="putting-it-all-together-with-the-lot-sizing-example-hart-et-al-2017">
 <h1>3.4 Putting it all together with the lot sizing example: (Hart et al., 2017)<a class="headerlink" href="#putting-it-all-together-with-the-lot-sizing-example-hart-et-al-2017" title="Link to this heading">#</a></h1>
 <p>We will now write a complete model from scratch using a well-known multi-period optimization problem for optimal lot-sizing adapted from
-Hagen et al. (2001) shown below.
-$<span class="math notranslate nohighlight">\(
-\begin{align}
+Hagen et al. (2001) shown below.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
 min \sum _{t \in T} c_{t} y_{t} + h_{t}^{+}I_{t}^{+} + h_{t}^{-}I_{t}^{-} \\
 s.t. \;\;\;I_{t} &amp;= I_{t-1} + X_{t} - d_{t} \\
 I_{t} &amp;= I_{t}^{+} - I_{t}^{-} \\
@@ -422,11 +431,11 @@ X_{t} &amp;\leq Py_{t} \\
 X_{t}, I_{t}^{+}, I_{t}^{-} &amp;\geq 0 \\
 y_{t} &amp;\in \{0,1\}
 \end{align}
-\)</span>$</p>
+\end{split}\]</div>
 <p>Our goal is to find the optimal production <span class="math notranslate nohighlight">\(X_{t}\)</span> given known demands <span class="math notranslate nohighlight">\(d_{t}\)</span>, fixed cost <span class="math notranslate nohighlight">\(c_{t}\)</span> associated with active production in a particular time
 period, an inventory holding cost <span class="math notranslate nohighlight">\(h_{t}^{+}\)</span> and a shortage cost <span class="math notranslate nohighlight">\(h_{t}^{-}\)</span> (cost of keeping a backlog) of orders. The variable <span class="math notranslate nohighlight">\(y_{t}\)</span> (binary) determines if we produce in time <span class="math notranslate nohighlight">\(t\)</span> or not, and <span class="math notranslate nohighlight">\(I_{t}^{+}\)</span> represents inventory that we are storing
 across time period <span class="math notranslate nohighlight">\(t\)</span>, while <span class="math notranslate nohighlight">\(h_{t}^{-}\)</span> represents the magnitude of the backlog.
-Note that equation (4) is a constraint that only allows production in time period t if the indicator variable <span class="math notranslate nohighlight">\(y_{t}=1\)</span>. Write a Pyomo model for this problem and solve it using <em>glpk</em> using the data provided below. You can start with the file lot sizing <a class="reference external" href="http://incomplete.py">incomplete.py</a>. (A solution is provided in <code class="docutils literal notranslate"><span class="pre">3.4</span> <span class="pre">Putting</span> <span class="pre">it</span> <span class="pre">all</span> <span class="pre">together</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">lot</span> <span class="pre">sizing</span> <span class="pre">example</span> <span class="pre">copy</span> <span class="pre">-</span> <span class="pre">solution.ipynb</span></code>)</p>
+Note that equation (4) is a constraint that only allows production in time period t if the indicator variable <span class="math notranslate nohighlight">\(y_{t}=1\)</span>. Below we write a Pyomo model for this problem and solve it using <em>glpk</em> using the data provided below.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-center"><p>Parameter</p></th>

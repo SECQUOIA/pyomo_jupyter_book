@@ -209,6 +209,15 @@
 <li class="toctree-l2"><a class="reference internal" href="1.3%20Alternative%20Formulations.html">1.3 Alternative Formulations:</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Dynamic%20Exercises.html">Dynamic Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est1.html">Parameter Estimation 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est2.html">Parameter Estimation 2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../GDP%20Exercises.html">GDP Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../GDP%20Exercises/strip_packing.html">Strip Packing</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../References.html">References</a></li>
 </ul>
 
@@ -410,8 +419,7 @@ document.write(`
   <section id="alternative-initialization">
 <h1>1.1 Alternative Initialization:<a class="headerlink" href="#alternative-initialization" title="Link to this heading">#</a></h1>
 <p>Effective initialization can be critical for solving nonlinear problems, since they can have several local solutions
-and numerical difficulties. Solve the Rosenbrock example using different initial values for the x variables. Write a loop that varies the initial value from 2.0 to 6.0, solves the problem, and prints the solution for each iteration of the loop. (A solution for this problem can be found
-in <code class="docutils literal notranslate"><span class="pre">1.1</span> <span class="pre">Alternative</span> <span class="pre">Initialization</span> <span class="pre">-</span> <span class="pre">solution.ipynb</span></code>)</p>
+and numerical difficulties. Below we solve the Rosenbrock example using different initial values for the x variables. We write a loop that varies the initial value from 2.0 to 6.0, solves the problem, and prints the solution for each iteration of the loop.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># rosenbrock_script_loop.py: A Pyomo model for the Rosenbrock problem</span>

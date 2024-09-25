@@ -209,6 +209,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.3%20Alternative%20Formulations.html">1.3 Alternative Formulations:</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Dynamic%20Exercises.html">Dynamic Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est1.html">Parameter Estimation 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est2.html">Parameter Estimation 2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../GDP%20Exercises.html">GDP Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../GDP%20Exercises/strip_packing.html">Strip Packing</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../References.html">References</a></li>
 </ul>
 
@@ -411,12 +420,9 @@ document.write(`
 <h1>1.2 Knapsack with improved printing:<a class="headerlink" href="#knapsack-with-improved-printing" title="Link to this heading">#</a></h1>
 <p>The <a class="reference external" href="http://knapsack.py">knapsack.py</a> example shown
 in the tutorial uses <code class="docutils literal notranslate"><span class="pre">model.pprint()</span></code> to see the value of the solution
-variables. Starting with the code in <code class="docutils literal notranslate"><span class="pre">knapsack</span> <span class="pre">print</span> <span class="pre">incomplete.py</span></code>,
-complete the missing lines to produce formatted output. Note that the
-Pyomo value function should be used to get the floating point value of
-Pyomo modeling components (e.g., <code class="docutils literal notranslate"><span class="pre">print(value(model.x[i])</span></code>). Also
+variables. Note that the Pyomo value function should be used to get the floating point value of Pyomo modeling components (e.g., <code class="docutils literal notranslate"><span class="pre">print(value(model.x[i])</span></code>). We can also
 print the value of the items selected (the objective), and the total
-weight. (A solution can be found in <code class="docutils literal notranslate"><span class="pre">1.2</span> <span class="pre">Knapsack</span> <span class="pre">with</span> <span class="pre">improved</span> <span class="pre">printing</span> <span class="pre">-</span> <span class="pre">solution.ipynb</span></code>).</p>
+weight.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyomo.environ</span> <span class="k">as</span> <span class="nn">pyo</span>
