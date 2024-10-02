@@ -28,6 +28,10 @@ jobs:
         sudo apt update
         sudo apt-get install -y -qq glpk-utils
         sudo apt-get install -y -qq coinor-cbc
+
+    - name: install ipopt
+      run: |
+        sudo apt update
         sudo pip install idaes-pse --pre
         idaes get-extensions --to ./solvers
 
@@ -41,7 +45,6 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install openpyxl
-
 
     # (optional) Cache your executed notebooks between runs
     # if you have config:
