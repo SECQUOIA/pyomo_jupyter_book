@@ -35,10 +35,6 @@ jobs:
         sudo pip install idaes-pse --pre
         idaes get-extensions --to ./solvers
 
-    - name: testing
-      run: |
-        find / -name 'ipopt'
-
     # Install dependencies
     - name: Set up Python 3.11
       uses: actions/setup-python@v4
