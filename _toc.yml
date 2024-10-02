@@ -26,7 +26,7 @@ chapters:
   - file: Material/Nonlinear Exercises/1.1 Alternative Initialization
   - file: Material/Nonlinear Exercises/1.2 Evaluation errors
   - file: Material/Nonlinear Exercises/1.3 Alternative Formulations
-  - file: Material/Nonlinear Exercises/1.4 Reactor design problem (Hart et al., 2017; Bequette, 2003)
+  - file: Material/Nonlinear Exercises/1.4 Reactor design problem
 - file: Material/Dynamic Exercises
   sections: 
   - file: Material/Dynamic Exercises/param_est1
