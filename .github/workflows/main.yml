@@ -38,6 +38,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+        pip install openpyxl
 
     # (optional) Cache your executed notebooks between runs
     # if you have config:
