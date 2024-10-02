@@ -28,6 +28,8 @@ jobs:
         sudo apt update
         sudo apt-get install -y -qq glpk-utils
         sudo apt-get install -y -qq coinor-cbc
+        sudo pip install idaes-pse --pre
+        idaes get-extensions --to ./solvers
 
     # Install dependencies
     - name: Set up Python 3.11
@@ -39,6 +41,7 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install openpyxl
+
 
     # (optional) Cache your executed notebooks between runs
     # if you have config:
