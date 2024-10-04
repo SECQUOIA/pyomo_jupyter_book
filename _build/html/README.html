@@ -207,11 +207,16 @@
 <li class="toctree-l2"><a class="reference internal" href="Material/Nonlinear%20Exercises/1.1%20Alternative%20Initialization.html">1.1 Alternative Initialization:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Material/Nonlinear%20Exercises/1.2%20Evaluation%20errors.html">1.2 Evaluation errors:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Material/Nonlinear%20Exercises/1.3%20Alternative%20Formulations.html">1.3 Alternative Formulations:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Material/Nonlinear%20Exercises/1.4%20Reactor%20design%20problem.html">1.4 Reactor design problem (Hart et al., 2017; Bequette, 2003):</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="Material/Dynamic%20Exercises.html">Dynamic Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="Material/Dynamic%20Exercises/param_est1.html">Parameter Estimation 1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Material/Dynamic%20Exercises/param_est2.html">Parameter Estimation 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Material/Dynamic%20Exercises/small_colloc.html">Small collocation example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Material/Dynamic%20Exercises/colloc_matrix.html">Collocation Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Material/Dynamic%20Exercises/small_dae.html">Small Dae Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Material/Dynamic%20Exercises/small_findiff.html">Small Find Diff example</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="Material/GDP%20Exercises.html">GDP Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -273,7 +278,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/SECQUOIA/pyomo_jupyter_book" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -290,7 +295,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FREADME.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/SECQUOIA/pyomo_jupyter_book/issues/new?title=Issue%20on%20page%20%2FREADME.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -391,7 +396,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -407,6 +414,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-build-locally">How to build locally</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -419,6 +434,14 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="pyomo-jupyter-book">
 <h1>pyomo_jupyter_book<a class="headerlink" href="#pyomo-jupyter-book" title="Link to this heading">#</a></h1>
 <p>A conversion of the Pyomo workshop into a jupyter book</p>
+<p>Find the companion website <a class="reference external" href="https://secquoia.github.io/pyomo_jupyter_book/intro.html">here</a></p>
+<section id="how-to-build-locally">
+<h2>How to build locally<a class="headerlink" href="#how-to-build-locally" title="Link to this heading">#</a></h2>
+<p>Ensure you’ve opened the file as the working directory. Use these commands:
+<code class="docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">jupyter-book</span></code>
+then
+<code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span></code></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -457,6 +480,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-build-locally">How to build locally</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -1,0 +1,74 @@
+Traceback (most recent call last):
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bmurr\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pyomo.environ as pyo
+from pyomo.dae import ContinuousSet, DerivativeVar, Simulator
+import scipy
+
+m = pyo.ConcreteModel()
+
+m.t = ContinuousSet(bounds=(0,1))
+m.a = pyo.Var(m.t)
+m.b = pyo.Var(m.t)
+
+m.k1 = pyo.Param(initialize=5)
+m.k2 = pyo.Param(initialize=1)
+
+m.dadt = DerivativeVar(m.a)
+m.dbdt = DerivativeVar(m.b)
+
+m.a[0].fix(1)
+m.b[0].fix(0)
+
+def _da(m, t):
+    return m.dadt[t] == -m.k1*m.a[t]
+m.da_con = pyo.Constraint(m.t, rule=_da)
+
+def _db(m, t):
+    return m.dbdt[t] == m.k1*m.a[t] - m.k2*m.b[t]
+m.db_con = pyo.Constraint(m.t, rule=_db)
+
+mysim = Simulator(m, package='scipy')
+tsim, profiles = mysim.simulate(integrator='vode', numpoints=100)
+
+import matplotlib.pyplot as plt
+
+varorder = mysim.get_variable_order()
+for idx, v in enumerate(varorder):
+    plt.plot(tsim, profiles[:, idx], label=v)
+
+plt.xlabel('t')
+plt.legend(loc='best')
+plt.show()
+
+plt.show()
+
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Cell [1;32mIn[1], line 1[0m
+[1;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpyomo[39;00m[38;5;21;01m.[39;00m[38;5;21;01menviron[39;00m [38;5;28;01mas[39;00m [38;5;21;01mpyo[39;00m
+[0;32m      2[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpyomo[39;00m[38;5;21;01m.[39;00m[38;5;21;01mdae[39;00m [38;5;28;01mimport[39;00m ContinuousSet, DerivativeVar, Simulator
+[0;32m      3[0m [38;5;28;01mimport[39;00m [38;5;21;01mscipy[39;00m
+
+[1;31mModuleNotFoundError[0m: No module named 'pyomo'
+
