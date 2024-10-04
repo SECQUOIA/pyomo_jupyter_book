@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1.1 Knapsack example: &#8212; My sample book</title>
+    <title>1.1 Knapsack example: &#8212; Pyomo Workshop</title>
   
   
   
@@ -153,8 +153,8 @@
       
     
     
-    <img src="../../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Pyomo Workshop - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Pyomo Workshop - Home"/>`);</script>
   
   
 </a></div>
@@ -207,11 +207,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.1%20Alternative%20Initialization.html">1.1 Alternative Initialization:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.2%20Evaluation%20errors.html">1.2 Evaluation errors:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.3%20Alternative%20Formulations.html">1.3 Alternative Formulations:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.4%20Reactor%20design%20problem.html">1.4 Reactor design problem (Hart et al., 2017; Bequette, 2003):</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Dynamic%20Exercises.html">Dynamic Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est1.html">Parameter Estimation 1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est2.html">Parameter Estimation 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/small_colloc.html">Small collocation example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/colloc_matrix.html">Collocation Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/small_dae.html">Small Dae Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/small_findiff.html">Small Find Diff example</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../GDP%20Exercises.html">GDP Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -265,6 +270,37 @@
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/SECQUOIA/pyomo_jupyter_book/blob/master/docs/Material/Pyomo Fundamentals/1.1 Knapsack Example.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -273,7 +309,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/SECQUOIA/pyomo_jupyter_book" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -290,7 +326,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FMaterial/Pyomo Fundamentals/1.1 Knapsack Example.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/SECQUOIA/pyomo_jupyter_book/issues/new?title=Issue%20on%20page%20%2FMaterial/Pyomo Fundamentals/1.1 Knapsack Example.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -447,25 +483,15 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 Var Declarations
-    x : Size=4, Index={hammer, wrench, screwdriver, towel}
-        Key         : Lower : Value : Upper : Fixed : Stale : Domain
-             hammer :     0 :   1.0 :     1 : False : False : Binary
-        screwdriver :     0 :   1.0 :     1 : False : False : Binary
-              towel :     0 :   1.0 :     1 : False : False : Binary
-             wrench :     0 :   0.0 :     1 : False : False : Binary
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># knapsack.py </span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pyomo.environ</span> <span class="k">as</span> <span class="nn">pyo</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hammer&#39;</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">11</span><span class="p">}</span>
 
-1 Objective Declarations
-    obj : Size=1, Index=None, Active=True
-        Key  : Active : Sense    : Expression
-        None :   True : maximize : 8*x[hammer] + 3*x[wrench] + 6*x[screwdriver] + 11*x[towel]
-
-1 Constraint Declarations
-    weight_con : Size=1, Index=None, Active=True
-        Key  : Lower : Body                                                      : Upper : Active
-        None :  -Inf : 5*x[hammer] + 7*x[wrench] + 4*x[screwdriver] + 3*x[towel] :  14.0 :   True
-
-3 Declarations: x obj weight_con
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pyomo&#39;
 </pre></div>
 </div>
 </div>
@@ -536,7 +562,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Ben Murray, David Bernal
 </p>
 
   </div>

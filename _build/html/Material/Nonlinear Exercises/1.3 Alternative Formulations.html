@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1.3 Alternative Formulations: &#8212; My sample book</title>
+    <title>1.3 Alternative Formulations: &#8212; Pyomo Workshop</title>
   
   
   
@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Material/Nonlinear Exercises/1.3 Alternative Formulations';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Dynamic Exercises" href="../Dynamic%20Exercises.html" />
+    <link rel="next" title="1.4 Reactor design problem (Hart et al., 2017; Bequette, 2003):" href="1.4%20Reactor%20design%20problem.html" />
     <link rel="prev" title="1.2 Evaluation errors:" href="1.2%20Evaluation%20errors.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -155,8 +155,8 @@
       
     
     
-    <img src="../../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Pyomo Workshop - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Pyomo Workshop - Home"/>`);</script>
   
   
 </a></div>
@@ -209,11 +209,16 @@
 <li class="toctree-l2"><a class="reference internal" href="1.1%20Alternative%20Initialization.html">1.1 Alternative Initialization:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="1.2%20Evaluation%20errors.html">1.2 Evaluation errors:</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">1.3 Alternative Formulations:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.4%20Reactor%20design%20problem.html">1.4 Reactor design problem (Hart et al., 2017; Bequette, 2003):</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Dynamic%20Exercises.html">Dynamic Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est1.html">Parameter Estimation 1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/param_est2.html">Parameter Estimation 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/small_colloc.html">Small collocation example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/colloc_matrix.html">Collocation Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/small_dae.html">Small Dae Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dynamic%20Exercises/small_findiff.html">Small Find Diff example</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../GDP%20Exercises.html">GDP Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -267,6 +272,37 @@
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/SECQUOIA/pyomo_jupyter_book/blob/master/docs/Material/Nonlinear Exercises/1.3 Alternative Formulations.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -275,7 +311,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/SECQUOIA/pyomo_jupyter_book" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -292,7 +328,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FMaterial/Nonlinear Exercises/1.3 Alternative Formulations.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/SECQUOIA/pyomo_jupyter_book/issues/new?title=Issue%20on%20page%20%2FMaterial/Nonlinear Exercises/1.3 Alternative Formulations.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -451,7 +487,8 @@ about problem formulation from these examples?</p>
     <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="mf">1.0</span>
 <span class="n">model</span><span class="o">.</span><span class="n">con</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">con_rule</span><span class="p">)</span>
 
-<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
 <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">pyo</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
@@ -460,167 +497,14 @@ about problem formulation from these examples?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ipopt 3.9.1: 
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pyomo.environ</span> <span class="k">as</span> <span class="nn">pyo</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">model</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">ConcreteModel</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
 
-******************************************************************************
-This program contains Ipopt, a library for large-scale nonlinear optimization.
- Ipopt is released as open source code under the Common Public License (CPL).
-         For more information visit http://projects.coin-or.org/Ipopt
-******************************************************************************
-
-NOTE: You are using Ipopt by default with the MUMPS linear solver.
-      Other linear solvers might be more efficient (see Ipopt documentation).
-
-
-This is Ipopt version 3.9.1, running with linear solver mumps.
-
-Number of nonzeros in equality constraint Jacobian...:        2
-Number of nonzeros in inequality constraint Jacobian.:        0
-Number of nonzeros in Lagrangian Hessian.............:        3
-
-Total number of variables............................:        2
-                     variables with only lower bounds:        0
-                variables with lower and upper bounds:        0
-                     variables with only upper bounds:        0
-Total number of equality constraints.................:        1
-Total number of inequality constraints...............:        0
-        inequality constraints with only lower bounds:        0
-   inequality constraints with lower and upper bounds:        0
-        inequality constraints with only upper bounds:        0
-
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-   0 4.0920100e+001 2.00e-001 9.99e+000  -1.0 0.00e+000    -  0.00e+000 0.00e+000   0
-   1 5.9762286e-001 2.27e+000 1.52e+001  -1.0 5.48e+000    -  1.00e+000 1.00e+000f  1
-   2 1.9787064e-001 2.97e+000 2.40e+001  -1.0 8.02e+000    -  1.00e+000 1.25e-001f  4
-   3 6.5241867e+001 2.82e+000 2.98e+001  -1.0 6.68e+000    -  1.00e+000 1.00e+000h  1
-   4 9.5583161e+001 1.54e+000 2.31e+001  -1.0 4.70e+000    -  1.00e+000 1.00e+000h  1
-   5 1.8959813e+002 4.39e-001 2.77e+001  -1.0 1.14e+001    -  1.00e+000 1.00e+000h  1
-   6 2.2666991e+001 2.02e+000 1.24e+001  -1.0 1.54e+001    -  1.00e+000 1.00e+000f  1
-   7 3.7976779e+001 9.23e-001 1.21e+001  -1.0 3.88e+000    -  1.00e+000 1.00e+000h  1
-   8 2.0620942e+001 6.84e-002 1.64e+001  -1.0 5.65e+000    -  1.00e+000 5.00e-001f  2
-   9 9.8180623e-002 8.02e-001 1.24e+002  -1.0 3.63e+000    -  1.00e+000 1.00e+000f  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  10 2.3622224e+003 7.97e-001 1.42e+002  -1.0 4.73e+001    -  1.00e+000 1.00e+000h  1
-  11 3.6759509e+003 1.64e-001 2.37e+002  -1.0 3.63e+001    -  1.00e+000 1.00e+000h  1
-  12 7.0378669e+001 6.52e-001 5.20e+002  -1.0 4.32e+001    -  1.00e+000 1.00e+000f  1
-  13 2.5142436e+004 6.17e-001 5.94e+002  -1.0 1.40e+002    -  1.00e+000 1.00e+000h  1
-  14 2.6505724e+004 3.06e-001 1.02e+003  -1.7 7.26e+001    -  1.00e+000 1.00e+000h  1
-  15 3.7335004e+003 2.99e-001 5.43e+002  -1.7 9.42e+001    -  1.00e+000 1.00e+000f  1
-  16 3.5127061e+003 7.10e-002 3.16e+002  -1.7 9.60e+000    -  1.00e+000 1.00e+000f  1
-  17 3.2134630e+001 4.96e-001 1.50e+003  -1.7 4.08e+001    -  1.00e+000 1.00e+000f  1
-  18 1.0915648e+005 4.88e-001 1.76e+003  -1.7 2.89e+002    -  1.00e+000 1.00e+000h  1
-  19 1.1667899e+005 1.53e-001 1.76e+003  -1.7 1.07e+002    -  1.00e+000 1.00e+000h  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  20 3.7449172e+003 4.78e-001 3.37e+003  -1.7 2.30e+002    -  1.00e+000 1.00e+000f  1
-  21 4.9463570e+005 4.36e-001 3.65e+003  -1.7 5.58e+002    -  1.00e+000 1.00e+000h  1
-  22 3.6988313e+005 2.75e-001 5.13e+003  -1.7 2.37e+002    -  1.00e+000 1.00e+000f  1
-  23 8.9309627e+004 1.73e-001 1.92e+003  -1.7 2.88e+002    -  1.00e+000 1.00e+000f  1
-  24 4.0590995e+004 3.57e-002 4.55e+002  -1.7 1.71e+002    -  1.00e+000 5.00e-001f  2
-  25 1.8907970e+001 5.44e+000 1.24e+005  -1.7 1.46e+002    -  1.00e+000 1.00e+000f  1
-  26 1.4670968e+001 5.44e+000 1.24e+005  -1.7 1.63e+004    -  1.00e+000 4.88e-004f 12
-  27 2.3540992e+001 5.44e+000 1.24e+005  -1.7 1.63e+004    -  1.00e+000 6.10e-005h 15
-  28 2.8758563e+001 5.44e+000 1.24e+005  -1.7 1.63e+004    -  1.00e+000 3.05e-005h 16
-  29 3.1562971e+001 5.44e+000 1.24e+005  -1.7 1.63e+004    -  1.00e+000 1.53e-005h 17
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  30 2.8032208e+008 5.44e+000 1.32e+005  -1.7 1.63e+004    -  1.00e+000 1.00e+000s 22
-  31 2.9975467e+008 2.93e+000 7.23e+004  -1.7 4.29e+003    -  1.00e+000 1.00e+000s 22
-  32 5.0495436e+008 1.67e+000 5.58e+004  -1.7 1.07e+004    -  1.00e+000 1.00e+000s 22
-  33r5.0495436e+008 1.67e+000 9.99e+002   0.2 0.00e+000    -  0.00e+000 0.00e+000R  1
-  34r5.1181880e+008 1.63e+000 3.35e-003   0.2 5.20e+002    -  1.00e+000 1.00e+000f  1
-  35r5.1039583e+008 1.63e+000 4.77e-002  -1.9 4.51e+001    -  9.96e-001 9.97e-001h  1
-  36r4.9195690e+008 1.35e+000 4.46e-002  -4.2 4.64e+003    -  1.00e+000 1.00e+000f  1
-  37r4.9179264e+008 1.33e+000 4.40e-002  -4.2 4.40e+002  -4.0 1.00e+000 1.00e+000h  1
-  38r4.8990727e+008 1.27e+000 4.25e-002  -4.2 1.27e+003  -4.5 1.00e+000 1.00e+000f  1
-  39r4.7382990e+008 1.10e+000 3.97e-002  -4.2 3.57e+003  -5.0 1.00e+000 1.00e+000f  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  40r3.7628486e+008 4.51e-001 4.52e-002  -4.2 1.15e+004  -5.4 1.00e+000 1.00e+000f  1
-  41 1.0535429e+008 1.06e-001 2.99e+004  -1.7 2.02e+004    -  1.00e+000 5.00e-001f  2
-  42 5.0568867e+005 9.22e-001 1.26e+005  -2.5 7.56e+003    -  1.00e+000 1.00e+000f  1
-  43 3.3347854e+009 9.11e-001 1.34e+005  -2.5 5.68e+004    -  1.00e+000 1.00e+000h  1
-  44 5.8840295e+009 1.09e-001 2.61e+005  -2.5 5.18e+004    -  1.00e+000 1.00e+000h  1
-  45 4.1193681e+007 7.84e-001 1.00e+006  -2.5 5.56e+004    -  1.00e+000 1.00e+000f  1
-  46 1.4749624e+011 7.71e-001 1.15e+006  -2.5 3.68e+005    -  1.00e+000 1.00e+000h  1
-  47 2.1551056e+011 2.01e-001 1.98e+006  -2.5 2.71e+005    -  1.00e+000 1.00e+000h  1
-  48 6.9492790e+009 5.76e-001 3.13e+006  -2.5 3.24e+005    -  1.00e+000 1.00e+000f  1
-  49 6.6118467e+011 5.16e-001 3.38e+006  -2.5 6.55e+005    -  1.00e+000 1.00e+000h  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  50 4.9827617e+011 4.07e-001 6.68e+006  -2.5 3.23e+005    -  1.00e+000 1.00e+000f  1
-  51 2.5070264e+011 5.12e-002 9.66e+005  -2.5 2.31e+005    -  1.00e+000 1.00e+000f  1
-  52 6.1554283e+010 1.85e-003 3.55e+005  -2.5 3.76e+005    -  1.00e+000 5.00e-001f  2
-  53 5.2610602e+004 1.97e+000 5.11e+006  -2.5 1.76e+005    -  1.00e+000 1.00e+000f  1
-  54 4.4943993e+005 1.97e+000 5.11e+006  -2.5 2.59e+006    -  1.00e+000 1.22e-004h 14
-  55r4.4943993e+005 1.97e+000 9.99e+002   0.3 0.00e+000    -  0.00e+000 4.77e-007R 22
-  56r9.1590838e+005 9.92e-001 3.10e+002   0.3 6.91e+002    -  1.00e+000 6.90e-001f  1
-  57r2.2644186e+005 9.86e-001 1.97e+001   0.3 4.81e+002    -  1.09e-001 1.00e+000h  1
-  58 1.1167381e+005 1.33e-002 1.43e+003  -2.5 4.82e+002    -  1.00e+000 5.00e-001f  2
-  59 2.4761164e+001 6.53e-001 4.64e+004  -2.5 2.36e+002    -  1.00e+000 1.00e+000f  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  60 8.0634116e+005 6.53e-001 4.69e+004  -2.5 1.35e+004    -  1.00e+000 6.25e-002h  5
-  61 2.0421715e+008 6.11e-001 5.31e+004  -2.5 1.25e+004    -  1.00e+000 1.00e+000h  1
-  62 2.0547928e+008 3.37e-001 9.62e+004  -2.5 6.30e+003    -  1.00e+000 1.00e+000h  1
-  63 3.8552223e+007 2.46e-001 3.78e+004  -2.5 7.74e+003    -  1.00e+000 1.00e+000f  1
-  64 9.8554318e+006 4.34e-001 1.01e+005  -2.5 3.16e+003    -  1.00e+000 1.00e+000f  1
-  65 7.0645112e+007 2.83e-001 7.29e+004  -2.5 4.05e+003    -  1.00e+000 1.00e+000h  1
-  66 1.8787337e+007 1.58e-001 2.41e+004  -2.5 3.84e+003    -  1.00e+000 1.00e+000f  1
-  67 7.4750382e+006 2.41e-002 4.91e+003  -2.5 2.72e+003    -  1.00e+000 5.00e-001f  2
-  68 1.8819065e+006 2.10e-004 2.01e+003  -2.5 1.97e+003    -  1.00e+000 5.00e-001f  2
-  69 2.2873402e-002 1.84e+000 6.28e+005  -2.5 9.70e+002    -  1.00e+000 1.00e+000f  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  70r2.2873402e-002 1.84e+000 9.99e+002   0.3 0.00e+000    -  0.00e+000 4.77e-007R 22
-  71r4.4354155e-002 8.81e-001 1.76e+001   0.3 1.81e+003    -  1.00e+000 1.01e-003f  1
-  72 1.7777367e-002 9.56e-002 6.09e-001  -2.5 2.31e-001    -  1.00e+000 5.00e-001h  2
-  73 3.1710544e-004 4.13e-001 1.65e+000  -2.5 9.34e-002    -  1.00e+000 1.00e+000h  1
-  74 7.3010411e-003 3.89e-001 1.61e+000  -2.5 2.37e-001    -  1.00e+000 2.50e-001h  3
-  75 1.6286606e-002 3.21e-001 1.35e+000  -2.5 1.32e-001    -  1.00e+000 2.50e-001h  3
-  76 2.6562383e-002 3.14e-002 3.18e-001  -2.5 4.34e-002    -  1.00e+000 1.00e+000h  1
-  77 2.0350305e-005 1.52e+000 1.02e+001  -2.5 1.19e-001    -  1.00e+000 1.00e+000h  1
-  78 6.3258648e-005 1.51e+000 1.01e+001  -2.5 1.06e+000    -  1.00e+000 3.91e-003h  9
-  79 9.8841110e-005 1.41e+000 9.40e+000  -2.5 1.04e+000    -  1.00e+000 1.95e-003h 10
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  80 9.9426844e-005 1.41e+000 9.40e+000  -2.5 9.65e-001    -  1.00e+000 3.05e-005h 16
-  81 9.9720444e-005 1.41e+000 9.40e+000  -2.5 9.64e-001    -  1.00e+000 1.53e-005h 17
-  82 9.9867426e-005 1.41e+000 9.40e+000  -2.5 9.64e-001    -  1.00e+000 7.63e-006h 18
-  83 1.1102293e+000 1.41e+000 1.02e+001  -2.5 9.64e-001    -  1.00e+000 1.00e+000s 22
-  84 1.1553723e+000 4.67e-001 4.85e+000  -2.5 2.00e-001    -  1.00e+000 1.00e+000s 22
-  85 1.3046666e-001 4.37e-001 1.98e+000  -2.5 7.07e-001    -  1.00e+000 1.00e+000s 22
-  86r1.3046666e-001 4.37e-001 9.99e+002  -0.4 0.00e+000    -  0.00e+000 0.00e+000R  1
-  87r1.4621427e-001 9.41e-002 2.07e+001  -0.4 4.28e+002    -  1.00e+000 1.01e-003f  1
-  88r1.2540677e-001 1.70e-003 2.64e-002  -1.1 3.19e-002    -  1.00e+000 9.89e-001f  1
-  89 5.4344169e-005 8.17e-002 5.02e-001  -2.5 2.51e-001    -  1.00e+000 1.00e+000f  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  90 6.5134737e-005 3.69e-002 2.21e-001  -2.5 1.13e-002    -  1.00e+000 2.50e-001h  3
-  91 5.8419151e-005 7.57e-003 4.51e-002  -2.5 6.78e-004    -  1.00e+000 1.00e+000h  1
-  92 5.0159303e-005 2.98e-003 1.62e-002  -2.5 1.95e-003    -  1.00e+000 1.00e+000h  1
-  93 5.0002038e-005 3.51e-005 1.89e-004  -3.8 7.32e-005    -  1.00e+000 1.00e+000h  1
-  94 5.0000004e-005 8.35e-008 3.93e-007  -5.7 1.21e-005    -  1.00e+000 1.00e+000h  1
-  95 5.0000000e-005 5.22e-015 9.63e-014  -8.6 1.66e-009    -  1.00e+000 1.00e+000h  1
-
-Number of Iterations....: 95
-
-                                   (scaled)                 (unscaled)
-Objective...............:  5.0000000000000348e-005   5.0000000000000348e-005
-Dual infeasibility......:  9.6315316833184283e-014   9.6315316833184283e-014
-Constraint violation....:  5.2180482157382357e-015   5.2180482157382357e-015
-Complementarity.........:  0.0000000000000000e+000   0.0000000000000000e+000
-Overall NLP error.......:  9.6315316833184283e-014   9.6315316833184283e-014
-
-
-Number of objective function evaluations             = 359
-Number of objective gradient evaluations             = 88
-Number of equality constraint evaluations            = 359
-Number of inequality constraint evaluations          = 0
-Number of equality constraint Jacobian evaluations   = 100
-Number of inequality constraint Jacobian evaluations = 0
-Number of Lagrangian Hessian evaluations             = 95
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.034
-Total CPU secs in NLP function evaluations           =      0.000
-
-EXIT: Optimal Solution Found.
-
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.004999999999992
-0.004999999999991926
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pyomo&#39;
 </pre></div>
 </div>
 </div>
@@ -647,7 +531,8 @@ EXIT: Optimal Solution Found.
     <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">==</span> <span class="mf">1.0</span>
 <span class="n">model</span><span class="o">.</span><span class="n">con</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">con_rule</span><span class="p">)</span>
 
-<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
 <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">pyo</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
@@ -717,10 +602,7 @@ Total CPU secs in IPOPT (w/o function evaluations)   =      0.003
 Total CPU secs in NLP function evaluations           =      0.000
 
 EXIT: Optimal Solution Found.
-
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.005
+1.005
 0.005000000000000042
 </pre></div>
 </div>
@@ -748,7 +630,8 @@ EXIT: Optimal Solution Found.
     <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mf">1.0</span>
 <span class="n">model</span><span class="o">.</span><span class="n">con</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">con_rule</span><span class="p">)</span>
 
-<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
 <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">pyo</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
@@ -806,14 +689,11 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 2
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 1
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.002
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.001
 Total CPU secs in NLP function evaluations           =      0.000
 
 EXIT: Optimal Solution Found.
-
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.005
+1.005
 0.004999999999999893
 </pre></div>
 </div>
@@ -838,7 +718,8 @@ number of iterations and quality of solution, and compare with what you found in
     <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="mf">1.0</span>
 <span class="n">model</span><span class="o">.</span><span class="n">con</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">con_rule</span><span class="p">)</span>
 
-<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
 <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">pyo</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
@@ -936,14 +817,11 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 39
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 38
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.011
-Total CPU secs in NLP function evaluations           =      0.000
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.012
+Total CPU secs in NLP function evaluations           =      0.001
 
 EXIT: Optimal Solution Found.
-
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0050001257911454
+1.0050001257911454
 0.005000125791145421
 </pre></div>
 </div>
@@ -991,11 +869,11 @@ EXIT: Optimal Solution Found.
       </div>
     </a>
     <a class="right-next"
-       href="../Dynamic%20Exercises.html"
+       href="1.4%20Reactor%20design%20problem.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Dynamic Exercises</p>
+        <p class="prev-next-title">1.4 Reactor design problem (Hart et al., 2017; Bequette, 2003):</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1015,7 +893,7 @@ EXIT: Optimal Solution Found.
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Ben Murray, David Bernal
 </p>
 
   </div>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Parameter Estimation 2 &#8212; My sample book</title>
+    <title>Parameter Estimation 2 &#8212; Pyomo Workshop</title>
   
   
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Material/Dynamic Exercises/param_est2';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="small_colloc.html" />
+    <link rel="next" title="Small collocation example" href="small_colloc.html" />
     <link rel="prev" title="Parameter Estimation 1" href="param_est1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -153,8 +153,8 @@
       
     
     
-    <img src="../../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Pyomo Workshop - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Pyomo Workshop - Home"/>`);</script>
   
   
 </a></div>
@@ -207,11 +207,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.1%20Alternative%20Initialization.html">1.1 Alternative Initialization:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.2%20Evaluation%20errors.html">1.2 Evaluation errors:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.3%20Alternative%20Formulations.html">1.3 Alternative Formulations:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Nonlinear%20Exercises/1.4%20Reactor%20design%20problem.html">1.4 Reactor design problem (Hart et al., 2017; Bequette, 2003):</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../Dynamic%20Exercises.html">Dynamic Exercises</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="param_est1.html">Parameter Estimation 1</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Parameter Estimation 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="small_colloc.html">Small collocation example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colloc_matrix.html">Collocation Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="small_dae.html">Small Dae Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="small_findiff.html">Small Find Diff example</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../GDP%20Exercises.html">GDP Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -265,6 +270,37 @@
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/SECQUOIA/pyomo_jupyter_book/blob/master/docs/Material/Dynamic Exercises/param_est2.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -273,7 +309,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/SECQUOIA/pyomo_jupyter_book" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -290,7 +326,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FMaterial/Dynamic Exercises/param_est2.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/SECQUOIA/pyomo_jupyter_book/issues/new?title=Issue%20on%20page%20%2FMaterial/Dynamic Exercises/param_est2.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -424,6 +460,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyomo.environ</span> <span class="k">as</span> <span class="nn">pyo</span>
 <span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="kn">import</span> <span class="n">ContinuousSet</span><span class="p">,</span> <span class="n">DerivativeVar</span><span class="p">,</span> <span class="n">Simulator</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
 
 <span class="n">m</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">ConcreteModel</span><span class="p">()</span>
 
@@ -466,7 +503,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/64e5436cbc7e8ecfa48fe974ac976e548fcda5e740ab7310e76bf863dc103839.png" src="../../_images/64e5436cbc7e8ecfa48fe974ac976e548fcda5e740ab7310e76bf863dc103839.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pyomo.environ</span> <span class="k">as</span> <span class="nn">pyo</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="kn">import</span> <span class="n">ContinuousSet</span><span class="p">,</span> <span class="n">DerivativeVar</span><span class="p">,</span> <span class="n">Simulator</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">scipy</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pyomo&#39;
+</pre></div>
+</div>
 </div>
 </div>
 <p>Now let’s estimate the parameters</p>
@@ -516,7 +562,8 @@ document.write(`
 <span class="n">discretizer</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">TransformationFactory</span><span class="p">(</span><span class="s1">&#39;dae.collocation&#39;</span><span class="p">)</span>
 <span class="n">discretizer</span><span class="o">.</span><span class="n">apply_to</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">nfe</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">ncp</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;LAGRANGE-RADAU&#39;</span><span class="p">)</span>
 
-<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
 <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;k1= &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pyo</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">k1</span><span class="p">)))</span>
@@ -707,16 +754,11 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 105
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 104
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.142
-Total CPU secs in NLP function evaluations           =      0.003
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.157
+Total CPU secs in NLP function evaluations           =      0.001
 
 EXIT: Optimal Solution Found.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k1= 5.00350934848808
+k1= 5.00350934848808
 k2= 0.9999977260457735
 </pre></div>
 </div>
@@ -769,7 +811,8 @@ k2= 0.9999977260457735
 <span class="n">discretizer</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">TransformationFactory</span><span class="p">(</span><span class="s1">&#39;dae.collocation&#39;</span><span class="p">)</span>
 <span class="n">discretizer</span><span class="o">.</span><span class="n">apply_to</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">nfe</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">ncp</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;LAGRANGE-RADAU&#39;</span><span class="p">)</span>
 
-<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
 <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;k1= &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pyo</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">k1</span><span class="p">)))</span>
@@ -835,9 +878,7 @@ iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
    5 3.4924703e+000 8.73e-001 3.43e+002  -1.7 1.49e+002    -  5.89e-001 2.12e-002h  3
    6 3.3768345e+000 7.61e-001 6.01e+002  -1.7 8.52e+001    -  7.87e-002 1.29e-001h  2
    7 3.3421277e+000 7.11e-001 6.56e+002  -1.7 6.92e+001    -  4.48e-001 6.53e-002H  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   8 3.3131009e+000 6.49e-001 7.61e+002  -1.7 9.22e+001    -  3.90e-002 8.81e-002h  3
+   8 3.3131009e+000 6.49e-001 7.61e+002  -1.7 9.22e+001    -  3.90e-002 8.81e-002h  3
    9 3.2866091e+000 5.80e-001 7.80e+002  -1.7 1.21e+002    -  2.37e-001 1.06e-001h  3
 iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
   10 3.0889266e+000 7.63e-001 1.80e+002  -1.7 6.41e+001    -  5.95e-001 9.90e-001H  1
@@ -888,9 +929,7 @@ iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
   51 3.1489225e+000 2.83e+000 2.81e+005  -1.7 5.54e+001    -  7.21e-004 2.82e-004h  1
   52 3.1573389e+000 2.80e+000 2.75e+005  -1.7 5.50e+001    -  5.16e-003 1.31e-002f  1
   53 3.1707023e+000 2.74e+000 2.61e+005  -1.7 5.78e+001    -  1.59e-004 2.25e-002f  1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  54 3.1715876e+000 2.74e+000 2.60e+005  -1.7 6.38e+001    -  1.14e-003 1.30e-003h  1
+  54 3.1715876e+000 2.74e+000 2.60e+005  -1.7 6.38e+001    -  1.14e-003 1.30e-003h  1
   55 3.1802329e+000 2.71e+000 2.53e+005  -1.7 6.32e+001    -  4.01e-003 1.37e-002f  1
   56 3.1895650e+000 2.68e+000 2.54e+005  -1.7 6.82e+001    -  2.39e-002 1.21e-002f  1
   57 3.1914476e+000 2.67e+000 2.53e+005  -1.7 6.84e+001    -  8.69e-004 2.81e-003h  1
@@ -964,16 +1003,11 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 105
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 104
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.139
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.396
 Total CPU secs in NLP function evaluations           =      0.006
 
 EXIT: Optimal Solution Found.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k1= 5.00350934848808
+k1= 5.00350934848808
 k2= 0.9999977260457735
 </pre></div>
 </div>
@@ -1026,7 +1060,7 @@ k2= 0.9999977260457735
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">Small collocation example</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1046,7 +1080,7 @@ k2= 0.9999977260457735
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Ben Murray, David Bernal
 </p>
 
   </div>

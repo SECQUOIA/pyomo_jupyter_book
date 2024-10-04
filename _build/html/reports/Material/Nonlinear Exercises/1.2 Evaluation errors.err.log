@@ -1,20 +1,20 @@
 Traceback (most recent call last):
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
     executenb(
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\nbclient\client.py", line 1314, in execute
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 1314, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
     return loop.run_until_complete(inner)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\bmurr\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 653, in run_until_complete
     return future.result()
            ^^^^^^^^^^^^^^^
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\nbclient\client.py", line 709, in async_execute
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
     await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
@@ -33,7 +33,8 @@ def con_rule(m):
     return m.y == pyo.sqrt(m.x - 1.0)
 model.con = pyo.Constraint(rule=con_rule)
 
-solver = pyo.SolverFactory('ipopt')
+ipopt_runner_path = "/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt"
+solver = pyo.SolverFactory('ipopt', executable=ipopt_runner_path)
 solver.options['halt_on_ampl_error'] = 'yes'
 solver.solve(model, tee=True)
 
@@ -41,60 +42,13 @@ print(pyo.value(model.x))
 print(pyo.value(model.y))
 ------------------
 
------ stdout -----
-Ipopt 3.9.1: halt_on_ampl_error=yes
-
-
-******************************************************************************
-This program contains Ipopt, a library for large-scale nonlinear optimization.
- Ipopt is released as open source code under the Common Public License (CPL).
-         For more information visit http://projects.coin-or.org/Ipopt
-******************************************************************************
-
-NOTE: You are using Ipopt by default with the MUMPS linear solver.
-      Other linear solvers might be more efficient (see Ipopt documentation).
-
-
-This is Ipopt version 3.9.1, running with linear solver mumps.
-
-Number of nonzeros in equality constraint Jacobian...:        2
-Number of nonzeros in inequality constraint Jacobian.:        0
-Number of nonzeros in Lagrangian Hessian.............:        2
-
-Total number of variables............................:        2
-                     variables with only lower bounds:        0
-                variables with lower and upper bounds:        0
-                     variables with only upper bounds:        0
-Total number of equality constraints.................:        1
-Total number of inequality constraints...............:        0
-        inequality constraints with only lower bounds:        0
-   inequality constraints with lower and upper bounds:        0
-        inequality constraints with only upper bounds:        0
-
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-   0 4.0920100e+001 3.00e+000 9.86e+000  -1.0 0.00e+000    -  0.00e+000 0.00e+000   0
-Error evaluating constraint 1: can't evaluate sqrt(-0.752432).
------ stdout -----
-ERROR: Solver (ipopt) returned non-zero return code (1)
------ stdout -----
-ERROR: See the solver log above for diagnostic information.
-------------------
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mApplicationError[0m                          Traceback (most recent call last)
-Cell [1;32mIn[1], line 18[0m
-[0;32m     16[0m solver [38;5;241m=[39m pyo[38;5;241m.[39mSolverFactory([38;5;124m'[39m[38;5;124mipopt[39m[38;5;124m'[39m)
-[0;32m     17[0m solver[38;5;241m.[39moptions[[38;5;124m'[39m[38;5;124mhalt_on_ampl_error[39m[38;5;124m'[39m] [38;5;241m=[39m [38;5;124m'[39m[38;5;124myes[39m[38;5;124m'[39m
-[1;32m---> 18[0m [43msolver[49m[38;5;241;43m.[39;49m[43msolve[49m[43m([49m[43mmodel[49m[43m,[49m[43m [49m[43mtee[49m[38;5;241;43m=[39;49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
-[0;32m     20[0m [38;5;28mprint[39m(pyo[38;5;241m.[39mvalue(model[38;5;241m.[39mx))
-[0;32m     21[0m [38;5;28mprint[39m(pyo[38;5;241m.[39mvalue(model[38;5;241m.[39my))
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Cell [1;32mIn[1], line 1[0m
+[1;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpyomo[39;00m[38;5;21;01m.[39;00m[38;5;21;01menviron[39;00m [38;5;28;01mas[39;00m [38;5;21;01mpyo[39;00m
+[0;32m      3[0m model [38;5;241m=[39m pyo[38;5;241m.[39mConcreteModel()
+[0;32m      5[0m model[38;5;241m.[39mx [38;5;241m=[39m pyo[38;5;241m.[39mVar(initialize[38;5;241m=[39m[38;5;241m5.0[39m)
 
-File [1;32mc:\Users\bmurr\CHE 498\.venv\Lib\site-packages\pyomo\opt\base\solvers.py:628[0m, in [0;36mOptSolver.solve[1;34m(self, *args, **kwds)[0m
-[0;32m    626[0m     [38;5;28;01melif[39;00m [38;5;28mhasattr[39m(_status, [38;5;124m'[39m[38;5;124mlog[39m[38;5;124m'[39m) [38;5;129;01mand[39;00m _status[38;5;241m.[39mlog:
-[0;32m    627[0m         logger[38;5;241m.[39merror([38;5;124m"[39m[38;5;124mSolver log:[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m [38;5;241m+[39m [38;5;28mstr[39m(_status[38;5;241m.[39mlog))
-[1;32m--> 628[0m     [38;5;28;01mraise[39;00m ApplicationError([38;5;124m"[39m[38;5;124mSolver ([39m[38;5;132;01m%s[39;00m[38;5;124m) did not exit normally[39m[38;5;124m"[39m [38;5;241m%[39m [38;5;28mself[39m[38;5;241m.[39mname)
-[0;32m    629[0m solve_completion_time [38;5;241m=[39m time[38;5;241m.[39mtime()
-[0;32m    630[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39m_report_timing:
-
-[1;31mApplicationError[0m: Solver (ipopt) did not exit normally
+[1;31mModuleNotFoundError[0m: No module named 'pyomo'
 

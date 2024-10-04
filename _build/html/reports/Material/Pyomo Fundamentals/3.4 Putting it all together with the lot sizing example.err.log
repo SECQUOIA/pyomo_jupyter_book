@@ -1,20 +1,20 @@
 Traceback (most recent call last):
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
     executenb(
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\nbclient\client.py", line 1314, in execute
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 1314, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
     return loop.run_until_complete(inner)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\bmurr\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 653, in run_until_complete
     return future.result()
            ^^^^^^^^^^^^^^^
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\nbclient\client.py", line 709, in async_execute
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
     await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "c:\Users\bmurr\CHE 498\.venv\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+  File "c:\Users\bmurr\CHE 498\pyomo_jupyter_book\.venv\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
@@ -32,8 +32,33 @@ P = 5.0            # maximum production amount
 # demand during period t
 d = {1: 5.0, 2:7.0, 3:6.2, 4:3.1, 5:1.7}
 
+# define the variables
+model.y = pyo.Var(model.T, domain=pyo.Binary)
+model.x = pyo.Var(model.T, domain=pyo.NonNegativeReals)
+model.i = pyo.Var(model.T)
+model.i_pos = pyo.Var(model.T, domain=pyo.NonNegativeReals)
+model.i_neg = pyo.Var(model.T, domain=pyo.NonNegativeReals)
 
-# TODO: WRITE CODE FOR THE MODEL HERE
+# define the inventory relationships
+def inventory_rule(m, t):
+    if t == m.T.first():
+        return m.i[t] == i0 + m.x[t] - d[t]
+    return m.i[t] == m.i[t-1] + m.x[t] - d[t]
+model.inventory = pyo.Constraint(model.T, rule=inventory_rule)
+
+def pos_neg_rule(m, t):
+    return m.i[t] == m.i_pos[t] - m.i_neg[t]
+model.pos_neg = pyo.Constraint(model.T, rule=pos_neg_rule)
+
+# create the big-M constraint for the production indicator variable
+def prod_indicator_rule(m,t):
+    return m.x[t] <= P*m.y[t]
+model.prod_indicator = pyo.Constraint(model.T, rule=prod_indicator_rule)
+
+# define the cost function
+def obj_rule(m):
+    return sum(c*m.y[t] + h_pos*m.i_pos[t] + h_neg*m.i_neg[t] for t in m.T)
+model.obj = pyo.Objective(rule=obj_rule)
 
 # solve the problem
 solver = pyo.SolverFactory('glpk')
@@ -42,23 +67,16 @@ solver.solve(model)
 # print the results
 for t in model.T:
     print('Period: {0}, Prod. Amount: {1}'.format(t, pyo.value(model.x[t]))) 
+
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mAttributeError[0m                            Traceback (most recent call last)
-Cell [1;32mIn[1], line 24[0m
-[0;32m     22[0m [38;5;66;03m# print the results[39;00m
-[0;32m     23[0m [38;5;28;01mfor[39;00m t [38;5;129;01min[39;00m model[38;5;241m.[39mT:
-[1;32m---> 24[0m     [38;5;28mprint[39m([38;5;124m'[39m[38;5;124mPeriod: [39m[38;5;132;01m{0}[39;00m[38;5;124m, Prod. Amount: [39m[38;5;132;01m{1}[39;00m[38;5;124m'[39m[38;5;241m.[39mformat(t, pyo[38;5;241m.[39mvalue([43mmodel[49m[38;5;241;43m.[39;49m[43mx[49m[t]))) 
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Cell [1;32mIn[1], line 1[0m
+[1;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpyomo[39;00m[38;5;21;01m.[39;00m[38;5;21;01menviron[39;00m [38;5;28;01mas[39;00m [38;5;21;01mpyo[39;00m
+[0;32m      3[0m model [38;5;241m=[39m pyo[38;5;241m.[39mConcreteModel()
+[0;32m      4[0m model[38;5;241m.[39mT [38;5;241m=[39m pyo[38;5;241m.[39mRangeSet([38;5;241m5[39m)    [38;5;66;03m# time periods[39;00m
 
-File [1;32mc:\Users\bmurr\CHE 498\.venv\Lib\site-packages\pyomo\core\base\block.py:550[0m, in [0;36mBlockData.__getattr__[1;34m(self, val)[0m
-[0;32m    547[0m     [38;5;28;01mreturn[39;00m _component_decorator([38;5;28mself[39m, ModelComponentFactory[38;5;241m.[39mget_class(val))
-[0;32m    548[0m [38;5;66;03m# Since the base classes don't support getattr, we can just[39;00m
-[0;32m    549[0m [38;5;66;03m# throw the "normal" AttributeError[39;00m
-[1;32m--> 550[0m [38;5;28;01mraise[39;00m [38;5;167;01mAttributeError[39;00m(
-[0;32m    551[0m     [38;5;124m"[39m[38;5;124m'[39m[38;5;132;01m%s[39;00m[38;5;124m'[39m[38;5;124m object has no attribute [39m[38;5;124m'[39m[38;5;132;01m%s[39;00m[38;5;124m'[39m[38;5;124m"[39m [38;5;241m%[39m ([38;5;28mself[39m[38;5;241m.[39m[38;5;18m__class__[39m[38;5;241m.[39m[38;5;18m__name__[39m, val)
-[0;32m    552[0m )
-
-[1;31mAttributeError[0m: 'ConcreteModel' object has no attribute 'x'
+[1;31mModuleNotFoundError[0m: No module named 'pyomo'
 
