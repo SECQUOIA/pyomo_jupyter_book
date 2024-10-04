@@ -1,8 +1,8 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: My sample book
-author: The Jupyter Book Community
+title: Pyomo Workshop
+author: Ben Murray, David Bernal
 logo: logo.png
 
 # Force re-execution of notebooks on each build.
@@ -19,6 +19,11 @@ latex:
 bibtex_bibfiles:
   - references.bib
 
+# Launch on Google Colab button
+launch_buttons:
+  notebook_interface: "classic"
+  colab_url: "https://colab.research.google.com"
+
 # Information about where the book exists on the web
 repository:
   url: https://github.com/SECQUOIA/pyomo_jupyter_book  # Online location of your book
@@ -30,3 +35,4 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+  use_multitoc_numbering: true
