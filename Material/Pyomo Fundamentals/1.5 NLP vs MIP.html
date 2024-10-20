@@ -474,8 +474,8 @@ document.write(`
 
 <span class="n">model</span><span class="o">.</span><span class="n">weight_con</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span>
     <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="n">W_max</span> <span class="p">)</span>
-<span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
-<span class="n">opt</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
+
+<span class="n">opt</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
 <span class="n">opt_success</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
 <span class="n">model</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
@@ -483,66 +483,25 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: Failed to create solver with name &#39;ipopt&#39;: Failed to set executable
-for solver ipopt. File with
-name=/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt
-either does not exist or it is not executable. To skip this validation, call
-set_executable with validate=False.
-Traceback (most recent call last):
-  File &quot;/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py&quot;, line 148, in __call__
-    opt = self._cls[_name](**kwds)
-  File &quot;/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/solvers/plugins/solvers/IPOPT.py&quot;, line 44, in __init__
-    super(IPOPT, self).__init__(**kwds)
-  File &quot;/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/solver/shellcmd.py&quot;, line 66, in __init__
-    self.set_executable(name=executable, validate=validate)
-  File &quot;/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/solver/shellcmd.py&quot;, line 115, in set_executable
-    raise ValueError(
-ValueError: Failed to set executable for solver ipopt. File with name=/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt either does not exist or it is not executable. To skip this validation, call set_executable with validate=False.
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">20</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">20</span> <span class="n">opt_success</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">model</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 Var Declarations
+    x : Size=4, Index={hammer, wrench, screwdriver, towel}
+        Key         : Lower : Value              : Upper : Fixed : Stale : Domain
+             hammer :     0 :                1.0 :     1 : False : False : Binary
+        screwdriver :     0 :                1.0 :     1 : False : False : Binary
+              towel :     0 :                1.0 :     1 : False : False : Binary
+             wrench :     0 : 0.2857142884855868 :     1 : False : False : Binary
 
-<span class="nn">File ~/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py:99,</span> in <span class="ni">UnknownSolver.solve</span><span class="nt">(self, *args, **kwds)</span>
-<span class="g g-Whitespace">     </span><span class="mi">97</span> <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">98</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Perform optimization and return an SolverResults object.&quot;&quot;&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">99</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_solver_error</span><span class="p">(</span><span class="s1">&#39;solve&#39;</span><span class="p">)</span>
+1 Objective Declarations
+    obj : Size=1, Index=None, Active=True
+        Key  : Active : Sense    : Expression
+        None :   True : maximize : 8*x[hammer] + 3*x[wrench] + 6*x[screwdriver] + 11*x[towel]
 
-<span class="nn">File ~/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py:116,</span> in <span class="ni">UnknownSolver._solver_error</span><span class="nt">(self, method_name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="k">def</span> <span class="nf">_solver_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">116</span>         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span><span class="w">             </span><span class="sd">&quot;&quot;&quot;Attempting to use an unavailable solver.</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span><span class="sd"> The SolverFactory was unable to create the solver &quot;%s&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="sd"> and returned an UnknownSolver object.  This error is raised at the point</span>
-<span class="g g-Whitespace">    </span><span class="mi">121</span><span class="sd"> where the UnknownSolver object was used as if it were valid (by calling</span>
-<span class="g g-Whitespace">    </span><span class="mi">122</span><span class="sd"> method &quot;%s&quot;).</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">124</span><span class="sd"> The original solver was created with the following parameters:</span>
-<span class="g g-Whitespace">    </span><span class="mi">125</span><span class="sd"> \t&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span>             <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
-<span class="nn">    127             + &quot;\n\t&quot;.join(&quot;%s: %s&quot; % i for i</span> in <span class="ni">sorted(self._kwds.items</span><span class="nt">()))</span>
-<span class="g g-Whitespace">    </span><span class="mi">128</span>             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">_args: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,)</span>
-<span class="g g-Whitespace">    </span><span class="mi">129</span>             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">options: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,)</span>
-<span class="g g-Whitespace">    </span><span class="mi">130</span>         <span class="p">)</span>
+1 Constraint Declarations
+    weight_con : Size=1, Index=None, Active=True
+        Key  : Lower : Body                                                      : Upper : Active
+        None :  -Inf : 5*x[hammer] + 7*x[wrench] + 4*x[screwdriver] + 3*x[towel] :  14.0 :   True
 
-<span class="ne">RuntimeError</span>: Attempting to use an unavailable solver.
-
-<span class="n">The</span> <span class="n">SolverFactory</span> <span class="n">was</span> <span class="n">unable</span> <span class="n">to</span> <span class="n">create</span> <span class="n">the</span> <span class="n">solver</span> <span class="s2">&quot;ipopt&quot;</span>
-<span class="ow">and</span> <span class="n">returned</span> <span class="n">an</span> <span class="n">UnknownSolver</span> <span class="nb">object</span><span class="o">.</span>  <span class="n">This</span> <span class="n">error</span> <span class="ow">is</span> <span class="n">raised</span> <span class="n">at</span> <span class="n">the</span> <span class="n">point</span>
-<span class="n">where</span> <span class="n">the</span> <span class="n">UnknownSolver</span> <span class="nb">object</span> <span class="n">was</span> <span class="n">used</span> <span class="k">as</span> <span class="k">if</span> <span class="n">it</span> <span class="n">were</span> <span class="n">valid</span> <span class="p">(</span><span class="n">by</span> <span class="n">calling</span>
-<span class="n">method</span> <span class="s2">&quot;solve&quot;</span><span class="p">)</span><span class="o">.</span>
-
-<span class="n">The</span> <span class="n">original</span> <span class="n">solver</span> <span class="n">was</span> <span class="n">created</span> <span class="k">with</span> <span class="n">the</span> <span class="n">following</span> <span class="n">parameters</span><span class="p">:</span>
-	<span class="n">executable</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">runner</span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">pyomo_jupyter_book</span><span class="o">/</span><span class="n">pyomo_jupyter_book</span><span class="o">/</span><span class="n">solvers</span><span class="o">/</span><span class="n">ipopt</span>
-	<span class="nb">type</span><span class="p">:</span> <span class="n">ipopt</span>
-	<span class="n">_args</span><span class="p">:</span> <span class="p">()</span>
-	<span class="n">options</span><span class="p">:</span> <span class="p">{}</span>
+3 Declarations: x obj weight_con
 </pre></div>
 </div>
 </div>

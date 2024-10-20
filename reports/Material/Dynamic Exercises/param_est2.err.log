@@ -108,7 +108,7 @@ ValueError: Failed to set executable for solver ipopt. File with name=/home/runn
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mRuntimeError[0m                              Traceback (most recent call last)
-Cell [0;32mIn[2], line 47[0m
+Cell [0;32mIn[3], line 47[0m
 [1;32m     45[0m ipopt_runner_path [38;5;241m=[39m [38;5;124m"[39m[38;5;124m/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt[39m[38;5;124m"[39m
 [1;32m     46[0m solver [38;5;241m=[39m pyo[38;5;241m.[39mSolverFactory([38;5;124m'[39m[38;5;124mipopt[39m[38;5;124m'[39m, executable[38;5;241m=[39mipopt_runner_path)
 [0;32m---> 47[0m [43msolver[49m[38;5;241;43m.[39;49m[43msolve[49m[43m([49m[43mm[49m[43m,[49m[43m [49m[43mtee[49m[38;5;241;43m=[39;49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m

@@ -515,8 +515,7 @@ document.write(`
 <span class="n">discretizer</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">TransformationFactory</span><span class="p">(</span><span class="s1">&#39;dae.collocation&#39;</span><span class="p">)</span>
 <span class="n">discretizer</span><span class="o">.</span><span class="n">apply_to</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">nfe</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">ncp</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
-<span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
-<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -538,69 +537,75 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: Failed to create solver with name &#39;ipopt&#39;: Failed to set executable
-for solver ipopt. File with
-name=/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt
-either does not exist or it is not executable. To skip this validation, call
-set_executable with validate=False.
-Traceback (most recent call last):
-  File &quot;/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py&quot;, line 148, in __call__
-    opt = self._cls[_name](**kwds)
-  File &quot;/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/solvers/plugins/solvers/IPOPT.py&quot;, line 44, in __init__
-    super(IPOPT, self).__init__(**kwds)
-  File &quot;/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/solver/shellcmd.py&quot;, line 66, in __init__
-    self.set_executable(name=executable, validate=validate)
-  File &quot;/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/solver/shellcmd.py&quot;, line 115, in set_executable
-    raise ValueError(
-ValueError: Failed to set executable for solver ipopt. File with name=/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt either does not exist or it is not executable. To skip this validation, call set_executable with validate=False.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ipopt 3.13.2: 
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+
+This version of Ipopt was compiled from source code available at
+    https://github.com/IDAES/Ipopt as part of the Institute for the Design of
+    Advanced Energy Systems Process Systems Engineering Framework (IDAES PSE
+    Framework) Copyright (c) 2018-2019. See https://github.com/IDAES/idaes-pse.
+
+This version of Ipopt was compiled using HSL, a collection of Fortran codes
+    for large-scale scientific computation.  All technical papers, sales and
+    publicity material resulting from use of the HSL codes within IPOPT must
+    contain the following acknowledgement:
+        HSL, a collection of Fortran codes for large-scale scientific
+        computation. See http://www.hsl.rl.ac.uk.
+******************************************************************************
+
+This is Ipopt version 3.13.2, running with linear solver ma27.
+
+Number of nonzeros in equality constraint Jacobian...:      769
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:        4
+
+Total number of variables............................:      166
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        2
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:      164
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  1.9838140e+00 1.00e+00 7.15e-02  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  3.7714229e-07 5.29e-15 9.37e-16  -1.0 1.00e+00    -  1.00e+00 1.00e+00h  1
+   2  3.6867493e-07 3.41e-15 9.86e-17  -2.5 1.45e-04    -  1.00e+00 1.00e+00h  1
+   3  3.5639520e-07 5.03e-15 6.94e-17  -3.8 1.72e-03    -  1.00e+00 1.00e+00h  1
+   4  3.5566463e-07 4.39e-15 3.13e-16  -5.7 5.27e-04    -  1.00e+00 1.00e+00h  1
+   5  3.5566442e-07 3.01e-15 7.04e-17  -8.6 9.04e-06    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 5
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.5566442170075718e-07    3.5566442170075718e-07
+Dual infeasibility......:   7.0357944730731203e-17    7.0357944730731203e-17
+Constraint violation....:   3.0114799542957371e-15    3.0114799542957371e-15
+Complementarity.........:   2.5137424147651268e-09    2.5137424147651268e-09
+Overall NLP error.......:   2.5137424147651268e-09    2.5137424147651268e-09
+
+
+Number of objective function evaluations             = 6
+Number of objective gradient evaluations             = 6
+Number of equality constraint evaluations            = 6
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 6
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 5
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.004
+Total CPU secs in NLP function evaluations           =      0.000
+
+EXIT: Optimal Solution Found.
+
 </pre></div>
 </div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">51</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span> <span class="n">ipopt_runner_path</span> <span class="o">=</span> <span class="s2">&quot;/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span> <span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="n">ipopt_runner_path</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">51</span> <span class="n">results</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="n">t_meas</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">measurements</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="n">x1_meas</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyo</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">measurements</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">measurements</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
-
-<span class="nn">File ~/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py:99,</span> in <span class="ni">UnknownSolver.solve</span><span class="nt">(self, *args, **kwds)</span>
-<span class="g g-Whitespace">     </span><span class="mi">97</span> <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">98</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Perform optimization and return an SolverResults object.&quot;&quot;&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">99</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_solver_error</span><span class="p">(</span><span class="s1">&#39;solve&#39;</span><span class="p">)</span>
-
-<span class="nn">File ~/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py:116,</span> in <span class="ni">UnknownSolver._solver_error</span><span class="nt">(self, method_name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="k">def</span> <span class="nf">_solver_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">116</span>         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span><span class="w">             </span><span class="sd">&quot;&quot;&quot;Attempting to use an unavailable solver.</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span><span class="sd"> The SolverFactory was unable to create the solver &quot;%s&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="sd"> and returned an UnknownSolver object.  This error is raised at the point</span>
-<span class="g g-Whitespace">    </span><span class="mi">121</span><span class="sd"> where the UnknownSolver object was used as if it were valid (by calling</span>
-<span class="g g-Whitespace">    </span><span class="mi">122</span><span class="sd"> method &quot;%s&quot;).</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">124</span><span class="sd"> The original solver was created with the following parameters:</span>
-<span class="g g-Whitespace">    </span><span class="mi">125</span><span class="sd"> \t&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span>             <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
-<span class="nn">    127             + &quot;\n\t&quot;.join(&quot;%s: %s&quot; % i for i</span> in <span class="ni">sorted(self._kwds.items</span><span class="nt">()))</span>
-<span class="g g-Whitespace">    </span><span class="mi">128</span>             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">_args: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,)</span>
-<span class="g g-Whitespace">    </span><span class="mi">129</span>             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">options: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,)</span>
-<span class="g g-Whitespace">    </span><span class="mi">130</span>         <span class="p">)</span>
-
-<span class="ne">RuntimeError</span>: Attempting to use an unavailable solver.
-
-<span class="n">The</span> <span class="n">SolverFactory</span> <span class="n">was</span> <span class="n">unable</span> <span class="n">to</span> <span class="n">create</span> <span class="n">the</span> <span class="n">solver</span> <span class="s2">&quot;ipopt&quot;</span>
-<span class="ow">and</span> <span class="n">returned</span> <span class="n">an</span> <span class="n">UnknownSolver</span> <span class="nb">object</span><span class="o">.</span>  <span class="n">This</span> <span class="n">error</span> <span class="ow">is</span> <span class="n">raised</span> <span class="n">at</span> <span class="n">the</span> <span class="n">point</span>
-<span class="n">where</span> <span class="n">the</span> <span class="n">UnknownSolver</span> <span class="nb">object</span> <span class="n">was</span> <span class="n">used</span> <span class="k">as</span> <span class="k">if</span> <span class="n">it</span> <span class="n">were</span> <span class="n">valid</span> <span class="p">(</span><span class="n">by</span> <span class="n">calling</span>
-<span class="n">method</span> <span class="s2">&quot;solve&quot;</span><span class="p">)</span><span class="o">.</span>
-
-<span class="n">The</span> <span class="n">original</span> <span class="n">solver</span> <span class="n">was</span> <span class="n">created</span> <span class="k">with</span> <span class="n">the</span> <span class="n">following</span> <span class="n">parameters</span><span class="p">:</span>
-	<span class="n">executable</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">runner</span><span class="o">/</span><span class="n">work</span><span class="o">/</span><span class="n">pyomo_jupyter_book</span><span class="o">/</span><span class="n">pyomo_jupyter_book</span><span class="o">/</span><span class="n">solvers</span><span class="o">/</span><span class="n">ipopt</span>
-	<span class="nb">type</span><span class="p">:</span> <span class="n">ipopt</span>
-	<span class="n">_args</span><span class="p">:</span> <span class="p">()</span>
-	<span class="n">options</span><span class="p">:</span> <span class="p">{}</span>
-</pre></div>
-</div>
+<img alt="../../_images/695d782271f3e225283693ec3a014f920cd2ec049c6cbcf40f33caa2fc1ebcc4.png" src="../../_images/695d782271f3e225283693ec3a014f920cd2ec049c6cbcf40f33caa2fc1ebcc4.png" />
 </div>
 </div>
 </section>
