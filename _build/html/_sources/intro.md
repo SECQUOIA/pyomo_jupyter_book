@@ -1,0 +1,4 @@
+# Pyomo Workshop
+
+```{tableofcontents}
+```

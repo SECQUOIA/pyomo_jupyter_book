@@ -1,0 +1,170 @@
+Traceback (most recent call last):
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/nbclient/client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pyomo.environ as pyo
+
+numcollocation = 4
+numfinelems = 2
+
+model = m = pyo.ConcreteModel()
+m.colloc = pyo.RangeSet(0,numcollocation-1)
+m.fe = pyo.RangeSet(0,numfinelems-1)
+m.h = pyo.Param(initialize=1.0/numfinelems)
+
+m.z = pyo.Var(m.fe,m.colloc)
+m.dzdt = pyo.Var(m.fe,m.colloc)
+m.time = pyo.Var(m.fe,m.colloc)
+
+# Collocation matrix for Radau points [0, 0.155051, 0.644949, 1]
+adot=[
+[-9.000001008080126, -4.1393887736243791, 1.7393879671602779, -3.0000002520200333],
+[10.048810106494384, 3.2247461916839306, -3.5678400771209411, 5.5319724150606273],
+[-1.3821424037453669, 1.1678398419022438, 0.77525464838285485, -7.5319723310539404],
+[0.33333330533110994, -0.25319725996179565, 1.0531974615778044, 5.000000168013341],
+]
+
+m.obj = pyo.Objective(expr=1) # Dummy Objective
+
+def _zdot(m, i, j):
+    return m.dzdt[i,j] == m.z[i,j]**2 - 2*m.z[i,j] +1
+m.zdot = pyo.Constraint(m.fe,m.colloc,rule=_zdot)
+
+# Collocation Equations
+def _colloc_eq(m,i,j):
+    if j == 0:
+        return pyo.Constraint.Skip
+    return m.h*(m.dzdt[i,j]) == sum(m.z[i,k]*adot[k][j] for k in range(0,numcollocation))
+m.colloc_eq = pyo.Constraint(m.fe,m.colloc,rule=_colloc_eq)
+
+def _colloc_eq_t(m,i,j):
+    if j == 0:
+        return pyo.Constraint.Skip
+    return m.h == sum(m.time[i,k]*adot[k][j] for k in range(0,numcollocation))
+m.colloc_eq_t = pyo.Constraint(m.fe,m.colloc,rule=_colloc_eq_t)
+
+
+# Continuity Equations
+def _cont_z(m,i):
+    if i == 0:
+        return pyo.Constraint.Skip
+    return m.z[i,0] == m.z[i-1,numcollocation-1]
+m.cont_z = pyo.Constraint(m.fe,rule=_cont_z)
+
+def _cont_t(m,i):
+    if i == 0:
+        return pyo.Constraint.Skip
+    return m.time[i,0] == m.time[i-1,numcollocation-1]
+m.cont_t = pyo.Constraint(m.fe,rule=_cont_t)
+
+# Initial Conditions
+def _init_con(m):
+    return m.z[0,0] == -3
+m.init_con = pyo.Constraint(rule=_init_con)
+
+def _init_con_t(m):
+    return m.time[0,0] == 0
+m.init_con_t = pyo.Constraint(rule=_init_con_t)
+
+ipopt_runner_path = "/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt"
+solver = pyo.SolverFactory('ipopt', executable=ipopt_runner_path)
+solver.solve(m,tee=True)
+
+import matplotlib.pyplot as plt
+
+analytical_t = [0.01*i for i in range(0,101)]
+analytical_z = [(4*t-3)/(4*t+1) for t in analytical_t]
+
+findiff_t = []
+findiff_z = []
+
+for i in range(0,numfinelems):
+    for j in range(0,numcollocation):
+        if i != 0 and j == 0:
+            continue
+        findiff_t.append(pyo.value(m.time[i,j]))
+        findiff_z.append(pyo.value(m.z[i,j]))
+
+plt.plot(analytical_t,analytical_z,'b',label='analytical solution')
+plt.plot(findiff_t,findiff_z,'ro--',label='collocation solution')
+plt.legend(loc='best')
+plt.xlabel("t")
+plt.show()
+------------------
+
+----- stdout -----
+WARNING: Failed to create solver with name 'ipopt': Failed to set executable
+for solver ipopt. File with
+name=/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt
+either does not exist or it is not executable. To skip this validation, call
+set_executable with validate=False.
+Traceback (most recent call last):
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py", line 148, in __call__
+    opt = self._cls[_name](**kwds)
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/solvers/plugins/solvers/IPOPT.py", line 44, in __init__
+    super(IPOPT, self).__init__(**kwds)
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/solver/shellcmd.py", line 66, in __init__
+    self.set_executable(name=executable, validate=validate)
+  File "/home/murraybj/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/solver/shellcmd.py", line 115, in set_executable
+    raise ValueError(
+ValueError: Failed to set executable for solver ipopt. File with name=/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt either does not exist or it is not executable. To skip this validation, call set_executable with validate=False.
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mRuntimeError[0m                              Traceback (most recent call last)
+Cell [0;32mIn[1], line 67[0m
+[1;32m     65[0m ipopt_runner_path [38;5;241m=[39m [38;5;124m"[39m[38;5;124m/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt[39m[38;5;124m"[39m
+[1;32m     66[0m solver [38;5;241m=[39m pyo[38;5;241m.[39mSolverFactory([38;5;124m'[39m[38;5;124mipopt[39m[38;5;124m'[39m, executable[38;5;241m=[39mipopt_runner_path)
+[0;32m---> 67[0m [43msolver[49m[38;5;241;43m.[39;49m[43msolve[49m[43m([49m[43mm[49m[43m,[49m[43mtee[49m[38;5;241;43m=[39;49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+[1;32m     69[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+[1;32m     71[0m analytical_t [38;5;241m=[39m [[38;5;241m0.01[39m[38;5;241m*[39mi [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m [38;5;28mrange[39m([38;5;241m0[39m,[38;5;241m101[39m)]
+
+File [0;32m~/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py:99[0m, in [0;36mUnknownSolver.solve[0;34m(self, *args, **kwds)[0m
+[1;32m     97[0m [38;5;28;01mdef[39;00m [38;5;21msolve[39m([38;5;28mself[39m, [38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwds):
+[1;32m     98[0m [38;5;250m    [39m[38;5;124;03m"""Perform optimization and return an SolverResults object."""[39;00m
+[0;32m---> 99[0m     [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_solver_error[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43msolve[39;49m[38;5;124;43m'[39;49m[43m)[49m
+
+File [0;32m~/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py:116[0m, in [0;36mUnknownSolver._solver_error[0;34m(self, method_name)[0m
+[1;32m    115[0m     [38;5;28;01mdef[39;00m [38;5;21m_solver_error[39m([38;5;28mself[39m, method_name):
+[0;32m--> 116[0m         [38;5;28;01mraise[39;00m [38;5;167;01mRuntimeError[39;00m(
+[1;32m    117[0m [38;5;250m            [39m[38;5;124;03m"""Attempting to use an unavailable solver.[39;00m
+[1;32m    118[0m 
+[1;32m    119[0m [38;5;124;03mThe SolverFactory was unable to create the solver "%s"[39;00m
+[1;32m    120[0m [38;5;124;03mand returned an UnknownSolver object.  This error is raised at the point[39;00m
+[1;32m    121[0m [38;5;124;03mwhere the UnknownSolver object was used as if it were valid (by calling[39;00m
+[1;32m    122[0m [38;5;124;03mmethod "%s").[39;00m
+[1;32m    123[0m 
+[1;32m    124[0m [38;5;124;03mThe original solver was created with the following parameters:[39;00m
+[1;32m    125[0m [38;5;124;03m\t"""[39;00m
+[1;32m    126[0m             [38;5;241m%[39m ([38;5;28mself[39m[38;5;241m.[39mtype, method_name)
+[1;32m    127[0m             [38;5;241m+[39m [38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;130;01m\t[39;00m[38;5;124m"[39m[38;5;241m.[39mjoin([38;5;124m"[39m[38;5;132;01m%s[39;00m[38;5;124m: [39m[38;5;132;01m%s[39;00m[38;5;124m"[39m [38;5;241m%[39m i [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m [38;5;28msorted[39m([38;5;28mself[39m[38;5;241m.[39m_kwds[38;5;241m.[39mitems()))
+[1;32m    128[0m             [38;5;241m+[39m [38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;130;01m\t[39;00m[38;5;124m_args: [39m[38;5;132;01m%s[39;00m[38;5;124m"[39m [38;5;241m%[39m ([38;5;28mself[39m[38;5;241m.[39m_args,)
+[1;32m    129[0m             [38;5;241m+[39m [38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;130;01m\t[39;00m[38;5;124moptions: [39m[38;5;132;01m%s[39;00m[38;5;124m"[39m [38;5;241m%[39m ([38;5;28mself[39m[38;5;241m.[39moptions,)
+[1;32m    130[0m         )
+
+[0;31mRuntimeError[0m: Attempting to use an unavailable solver.
+
+The SolverFactory was unable to create the solver "ipopt"
+and returned an UnknownSolver object.  This error is raised at the point
+where the UnknownSolver object was used as if it were valid (by calling
+method "solve").
+
+The original solver was created with the following parameters:
+	executable: /home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt
+	type: ipopt
+	_args: ()
+	options: {}
+
