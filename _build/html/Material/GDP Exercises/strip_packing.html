@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -536,39 +536,1036 @@ signature (block, value).  (deprecated in 6.8.0) (called from
 packages/pyomo/core/base/disable_methods.py:124)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: Could not locate the &#39;glpsol&#39; executable, which is required for
-solver &#39;glpk&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GLPSOL--GLPK LP/MIP Solver 5.0
+Parameter(s) specified in the command line:
+ --write /tmp/tmp0j28vhms.glpk.raw --wglp /tmp/tmp40t_dwqy.glpk.glp --cpxlp
+ /tmp/tmp81ict0el.pyomo.lp
+Reading problem data from &#39;/tmp/tmp81ict0el.pyomo.lp&#39;...
+/tmp/tmp81ict0el.pyomo.lp:250: warning: lower bound of variable &#39;x12&#39; redefined
+/tmp/tmp81ict0el.pyomo.lp:250: warning: upper bound of variable &#39;x12&#39; redefined
+34 rows, 33 columns, 104 non-zeros
+24 integer variables, all of which are binary
+274 lines were read
+Writing problem data to &#39;/tmp/tmp40t_dwqy.glpk.glp&#39;...
+218 lines were written
+GLPK Integer Optimizer 5.0
+34 rows, 33 columns, 104 non-zeros
+24 integer variables, all of which are binary
+Preprocessing...
+34 rows, 33 columns, 104 non-zeros
+24 integer variables, all of which are binary
+Scaling...
+ A: min|aij| =  1.000e+00  max|aij| =  3.000e+01  ratio =  3.000e+01
+GM: min|aij| =  7.577e-01  max|aij| =  1.320e+00  ratio =  1.742e+00
+EQ: min|aij| =  5.958e-01  max|aij| =  1.000e+00  ratio =  1.679e+00
+2N: min|aij| =  5.000e-01  max|aij| =  1.000e+00  ratio =  2.000e+00
+Constructing initial basis...
+Size of triangular part is 34
+Solving LP relaxation...
+GLPK Simplex Optimizer 5.0
+34 rows, 33 columns, 104 non-zeros
+      0: obj =   6.000000000e+00 inf =   4.750e+00 (7)
+      8: obj =   8.000000000e+00 inf =   0.000e+00 (0)
+OPTIMAL LP SOLUTION FOUND
+Integer optimization begins...
+Long-step dual simplex will be used
++     8: mip =     not found yet &gt;=              -inf        (1; 0)
++    22: &gt;&gt;&gt;&gt;&gt;   1.100000000e+01 &gt;=   8.000000000e+00  27.3% (6; 0)
++    45: mip =   1.100000000e+01 &gt;=     tree is empty   0.0% (0; 15)
+INTEGER OPTIMAL SOLUTION FOUND
+Time used:   0.0 secs
+Memory used: 0.1 Mb (95163 bytes)
+Writing MIP solution to &#39;/tmp/tmp0j28vhms.glpk.raw&#39;...
+76 lines were written
 </pre></div>
 </div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ApplicationError</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">63</span>
-<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="n">pyo</span><span class="o">.</span><span class="n">TransformationFactory</span><span class="p">(</span><span class="s1">&#39;gdp.bigm&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply_to</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">60</span> <span class="c1">#</span>
-<span class="g g-Whitespace">     </span><span class="mi">61</span> <span class="c1"># Solve and print the solution</span>
-<span class="g g-Whitespace">     </span><span class="mi">62</span> <span class="c1">#</span>
-<span class="ne">---&gt; </span><span class="mi">63</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;glpk&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span> <span class="n">model</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">65</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">RECTANGLES</span><span class="p">:</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2 Set Declarations
+    OVERLAP_PAIRS : Size=1, Index=None, Ordered=Insertion
+        Key  : Dimen : Domain : Size : Members
+        None :     2 :    Any :    6 : {(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)}
+    RECTANGLES : Size=1, Index=None, Ordered=Insertion
+        Key  : Dimen : Domain : Size : Members
+        None :     1 :    Any :    4 : {0, 1, 2, 3}
 
-<span class="nn">File ~/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/base/solvers.py:534,</span> in <span class="ni">OptSolver.solve</span><span class="nt">(self, *args, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">531</span> <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">532</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Solve the problem&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">534</span>     <span class="bp">self</span><span class="o">.</span><span class="n">available</span><span class="p">(</span><span class="n">exception_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">535</span>     <span class="c1">#</span>
-<span class="g g-Whitespace">    </span><span class="mi">536</span>     <span class="c1"># If the inputs are models, then validate that they have been</span>
-<span class="g g-Whitespace">    </span><span class="mi">537</span>     <span class="c1"># constructed! Collect suffix names to try and import from solution.</span>
-<span class="g g-Whitespace">    </span><span class="mi">538</span>     <span class="c1">#</span>
-<span class="g g-Whitespace">    </span><span class="mi">539</span>     <span class="kn">from</span> <span class="nn">pyomo.core.base.block</span> <span class="kn">import</span> <span class="n">BlockData</span>
+4 Param Declarations
+    Length : Size=4, Index=RECTANGLES, Domain=Any, Default=None, Mutable=False
+        Key : Value
+          0 :     6
+          1 :     8
+          2 :     5
+          3 :     3
+    LengthUB : Size=1, Index=None, Domain=Any, Default=None, Mutable=False
+        Key  : Value
+        None :    22
+    StripWidth : Width of the strip
+        Size=1, Index=None, Domain=Any, Default=None, Mutable=False
+        Key  : Value
+        None :    10
+    Width : Size=4, Index=RECTANGLES, Domain=Any, Default=None, Mutable=False
+        Key : Value
+          0 :     6
+          1 :     3
+          2 :     4
+          3 :     2
 
-<span class="nn">File ~/CHE498/pyomo_jupyter_book/.venv/lib/python3.10/site-packages/pyomo/opt/solver/shellcmd.py:140,</span> in <span class="ni">SystemCallSolver.available</span><span class="nt">(self, exception_flag)</span>
-<span class="g g-Whitespace">    </span><span class="mi">138</span>     <span class="k">if</span> <span class="n">exception_flag</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No executable found for solver &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">140</span>         <span class="k">raise</span> <span class="n">ApplicationError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">141</span>     <span class="k">return</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">142</span> <span class="k">return</span> <span class="kc">True</span>
+3 Var Declarations
+    MaxLength : Size=1, Index=None
+        Key  : Lower : Value : Upper : Fixed : Stale : Domain
+        None :     0 :  11.0 :  None : False : False : NonNegativeReals
+    x : rectangle corner x-position (position down length)
+        Size=4, Index=RECTANGLES
+        Key : Lower : Value : Upper : Fixed : Stale : Domain
+          0 :     0 :   0.0 :  22.0 : False : False :  Reals
+          1 :     0 :   0.0 :  22.0 : False : False :  Reals
+          2 :     0 :   6.0 :  22.0 : False : False :  Reals
+          3 :     0 :   8.0 :  22.0 : False : False :  Reals
+    y : rectangle corner y-position (position across width)
+        Size=4, Index=RECTANGLES
+        Key : Lower : Value : Upper : Fixed : Stale : Domain
+          0 :     0 :   4.0 :     4 : False : False :  Reals
+          1 :     0 :   0.0 :     7 : False : False :  Reals
+          2 :     0 :   3.0 :     6 : False : False :  Reals
+          3 :     0 :   0.0 :     8 : False : False :  Reals
 
-<span class="ne">ApplicationError</span>: No executable found for solver &#39;glpk&#39;
+1 Objective Declarations
+    total_length : Size=1, Index=None, Active=True
+        Key  : Active : Sense    : Expression
+        None :   True : minimize :  MaxLength
+
+1 Constraint Declarations
+    strip_ends_after_last_rec : Size=4, Index=RECTANGLES, Active=True
+        Key : Lower : Body                 : Upper : Active
+          0 :  -Inf : x[0] + 6 - MaxLength :   0.0 :   True
+          1 :  -Inf : x[1] + 8 - MaxLength :   0.0 :   True
+          2 :  -Inf : x[2] + 5 - MaxLength :   0.0 :   True
+          3 :  -Inf : x[3] + 3 - MaxLength :   0.0 :   True
+
+1 Block Declarations
+    _pyomo_gdp_bigm_reformulation : Size=1, Index=None, Active=True
+        1 Constraint Declarations
+            noOverlap_xor : Size=6, Index=Any, Active=True
+                Key    : Lower : Body                                                                                                                                                                                      : Upper : Active
+                (0, 1) :   1.0 :     noOverlap_disjuncts[0].binary_indicator_var + noOverlap_disjuncts[1].binary_indicator_var + noOverlap_disjuncts[2].binary_indicator_var + noOverlap_disjuncts[3].binary_indicator_var :   1.0 :   True
+                (0, 2) :   1.0 :     noOverlap_disjuncts[4].binary_indicator_var + noOverlap_disjuncts[5].binary_indicator_var + noOverlap_disjuncts[6].binary_indicator_var + noOverlap_disjuncts[7].binary_indicator_var :   1.0 :   True
+                (0, 3) :   1.0 :   noOverlap_disjuncts[8].binary_indicator_var + noOverlap_disjuncts[9].binary_indicator_var + noOverlap_disjuncts[10].binary_indicator_var + noOverlap_disjuncts[11].binary_indicator_var :   1.0 :   True
+                (1, 2) :   1.0 : noOverlap_disjuncts[12].binary_indicator_var + noOverlap_disjuncts[13].binary_indicator_var + noOverlap_disjuncts[14].binary_indicator_var + noOverlap_disjuncts[15].binary_indicator_var :   1.0 :   True
+                (1, 3) :   1.0 : noOverlap_disjuncts[16].binary_indicator_var + noOverlap_disjuncts[17].binary_indicator_var + noOverlap_disjuncts[18].binary_indicator_var + noOverlap_disjuncts[19].binary_indicator_var :   1.0 :   True
+                (2, 3) :   1.0 : noOverlap_disjuncts[20].binary_indicator_var + noOverlap_disjuncts[21].binary_indicator_var + noOverlap_disjuncts[22].binary_indicator_var + noOverlap_disjuncts[23].binary_indicator_var :   1.0 :   True
+
+        1 Block Declarations
+            relaxedDisjuncts : Size=24, Index=NonNegativeIntegers, Active=True
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[0] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[0] + 6 - x[1] - 28.0*(1 - noOverlap_disjuncts[0].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[0].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[1] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[1] + 8 - x[0] - 30.0*(1 - noOverlap_disjuncts[1].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[1].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[2] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[0] + 6 - y[1] - 10.0*(1 - noOverlap_disjuncts[2].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[2].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[3] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[1] + 3 - y[0] - 10.0*(1 - noOverlap_disjuncts[3].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[3].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   1.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[4] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[0] + 6 - x[2] - 28.0*(1 - noOverlap_disjuncts[4].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[4].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   1.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[5] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[2] + 5 - x[0] - 27.0*(1 - noOverlap_disjuncts[5].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[5].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[6] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[0] + 6 - y[2] - 10.0*(1 - noOverlap_disjuncts[6].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[6].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[7] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[2] + 4 - y[0] - 10.0*(1 - noOverlap_disjuncts[7].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[7].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[8] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[0] + 6 - x[3] - 28.0*(1 - noOverlap_disjuncts[8].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[8].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[9] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                     : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[3] + 3 - x[0] - 25.0*(1 - noOverlap_disjuncts[9].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[9].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[10] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[0] + 6 - y[3] - 10.0*(1 - noOverlap_disjuncts[10].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[10].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[11] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[3] + 2 - y[0] - 10.0*(1 - noOverlap_disjuncts[11].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[11].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   1.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[12] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[1] + 8 - x[2] - 30.0*(1 - noOverlap_disjuncts[12].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[12].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[13] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[2] + 5 - x[1] - 27.0*(1 - noOverlap_disjuncts[13].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[13].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[14] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[1] + 3 - y[2] - 10.0*(1 - noOverlap_disjuncts[14].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[14].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   1.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[15] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[2] + 4 - y[1] - 10.0*(1 - noOverlap_disjuncts[15].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[15].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[16] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[1] + 8 - x[3] - 30.0*(1 - noOverlap_disjuncts[16].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[16].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   1.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[17] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[3] + 3 - x[1] - 25.0*(1 - noOverlap_disjuncts[17].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[17].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[18] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[1] + 3 - y[3] - 10.0*(1 - noOverlap_disjuncts[18].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[18].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[19] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[3] + 2 - y[1] - 10.0*(1 - noOverlap_disjuncts[19].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[19].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[20] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[2] + 5 - x[3] - 27.0*(1 - noOverlap_disjuncts[20].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[20].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[21] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : x[3] + 3 - x[2] - 25.0*(1 - noOverlap_disjuncts[21].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[21].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[22] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[2] + 4 - y[3] - 10.0*(1 - noOverlap_disjuncts[22].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[22].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   0.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+                _pyomo_gdp_bigm_reformulation.relaxedDisjuncts[23] : Active=True
+                    1 Constraint Declarations
+                        transformedConstraints : Size=1, Index=Any, Active=True
+                            Key                          : Lower : Body                                                                      : Upper : Active
+                            (&#39;constraint[1]_0&#39;, 1, &#39;ub&#39;) :  -Inf : y[3] + 2 - y[2] - 10.0*(1 - noOverlap_disjuncts[23].binary_indicator_var) :   0.0 :   True
+
+                    1 Block Declarations
+                        localVarReferences : Size=1, Index=None, Active=True
+                            1 Var Declarations
+                                binary_indicator_var : Size=1, Index=UnindexedComponent_ReferenceSet, ReferenceTo=noOverlap_disjuncts[23].binary_indicator_var
+                                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                                    None :     0 :   1.0 :     1 : False : False : Binary
+
+                            1 Declarations: binary_indicator_var
+
+                    2 Declarations: transformedConstraints localVarReferences
+
+        2 Declarations: relaxedDisjuncts noOverlap_xor
+
+1 Disjunct Declarations
+    noOverlap_disjuncts : Size=24, Index=Any, Active=False
+        noOverlap_disjuncts[0] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[0] + 6 - x[1] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[1] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[1] + 8 - x[0] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[2] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[0] + 6 - y[1] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[3] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   1.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[1] + 3 - y[0] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None :  True : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[4] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   1.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[0] + 6 - x[2] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None :  True : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[5] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[2] + 5 - x[0] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[6] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[0] + 6 - y[2] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[7] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[2] + 4 - y[0] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[8] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[0] + 6 - x[3] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[9] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[3] + 3 - x[0] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[10] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[0] + 6 - y[3] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[11] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   1.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[3] + 2 - y[0] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None :  True : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[12] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[1] + 8 - x[2] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[13] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[2] + 5 - x[1] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[14] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   1.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[1] + 3 - y[2] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None :  True : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[15] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[2] + 4 - y[1] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[16] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   1.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[1] + 8 - x[3] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None :  True : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[17] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[3] + 3 - x[1] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[18] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[1] + 3 - y[3] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[19] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[3] + 2 - y[1] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[20] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[2] + 5 - x[3] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[21] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : x[3] + 3 - x[2] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[22] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   0.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[2] + 4 - y[3] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None : False : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+        noOverlap_disjuncts[23] : Active=False
+            1 Var Declarations
+                binary_indicator_var : Size=1, Index=None
+                    Key  : Lower : Value : Upper : Fixed : Stale : Domain
+                    None :     0 :   1.0 :     1 : False : False : Binary
+
+            1 Constraint Declarations
+                constraint : Size=1, Index={1}, Active=True
+                    Key : Lower : Body            : Upper : Active
+                      1 :  -Inf : y[3] + 2 - y[2] :   0.0 :  False
+
+            1 BooleanVar Declarations
+                indicator_var : Size=1, Index=None
+                    Key  : Value : Fixed : Stale
+                    None :  True : False : False
+
+            1 LogicalConstraint Declarations
+                propositions : Size=0, Index={}, Active=False
+                    Key : Body : Active
+
+            4 Declarations: indicator_var binary_indicator_var constraint propositions
+
+1 Disjunction Declarations
+    noOverlap : Size=6, Index=OVERLAP_PAIRS, Active=False
+        Key    : Disjuncts                                                                                                    : Active : XOR
+        (0, 1) :     [&#39;noOverlap_disjuncts[0]&#39;, &#39;noOverlap_disjuncts[1]&#39;, &#39;noOverlap_disjuncts[2]&#39;, &#39;noOverlap_disjuncts[3]&#39;] :  False : True
+        (0, 2) :     [&#39;noOverlap_disjuncts[4]&#39;, &#39;noOverlap_disjuncts[5]&#39;, &#39;noOverlap_disjuncts[6]&#39;, &#39;noOverlap_disjuncts[7]&#39;] :  False : True
+        (0, 3) :   [&#39;noOverlap_disjuncts[8]&#39;, &#39;noOverlap_disjuncts[9]&#39;, &#39;noOverlap_disjuncts[10]&#39;, &#39;noOverlap_disjuncts[11]&#39;] :  False : True
+        (1, 2) : [&#39;noOverlap_disjuncts[12]&#39;, &#39;noOverlap_disjuncts[13]&#39;, &#39;noOverlap_disjuncts[14]&#39;, &#39;noOverlap_disjuncts[15]&#39;] :  False : True
+        (1, 3) : [&#39;noOverlap_disjuncts[16]&#39;, &#39;noOverlap_disjuncts[17]&#39;, &#39;noOverlap_disjuncts[18]&#39;, &#39;noOverlap_disjuncts[19]&#39;] :  False : True
+        (2, 3) : [&#39;noOverlap_disjuncts[20]&#39;, &#39;noOverlap_disjuncts[21]&#39;, &#39;noOverlap_disjuncts[22]&#39;, &#39;noOverlap_disjuncts[23]&#39;] :  False : True
+
+14 Declarations: RECTANGLES Width Length StripWidth LengthUB x y MaxLength OVERLAP_PAIRS strip_ends_after_last_rec total_length noOverlap noOverlap_disjuncts _pyomo_gdp_bigm_reformulation
+Rectangle 0: (0.0, 4.0)
+Rectangle 1: (0.0, 0.0)
+Rectangle 2: (6.0, 3.0)
+Rectangle 3: (8.0, 0.0)
+total_length : Size=1, Index=None, Active=True
+    Key  : Active : Value
+    None :   True :  11.0
 </pre></div>
 </div>
 </div>
