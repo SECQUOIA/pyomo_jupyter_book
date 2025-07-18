@@ -25,6 +25,19 @@ jobs:
         sudo apt update
         sudo apt-get install -y -qq glpk-utils coinor-cbc
 
+    - name: Setup Micromamba for IPOPT installation  
+      uses: mamba-org/setup-micromamba@v1
+      with:
+        environment-name: solvers
+        create-args: >-
+          ipopt
+        channels: conda-forge
+        cache-environment: true
+
+    - name: Add IPOPT to PATH
+      run: |
+        echo "${MAMBA_ROOT_PREFIX}/envs/solvers/bin" >> $GITHUB_PATH
+
     - name: Install Python dependencies
       run: |
         pip install --upgrade pip
@@ -119,6 +132,19 @@ jobs:
       run: |
         sudo apt update
         sudo apt-get install -y -qq glpk-utils coinor-cbc
+
+    - name: Setup Micromamba for IPOPT installation  
+      uses: mamba-org/setup-micromamba@v1
+      with:
+        environment-name: solvers
+        create-args: >-
+          ipopt
+        channels: conda-forge
+        cache-environment: true
+
+    - name: Add IPOPT to PATH
+      run: |
+        echo "${MAMBA_ROOT_PREFIX}/envs/solvers/bin" >> $GITHUB_PATH
 
     - name: Install Python dependencies
       run: |
