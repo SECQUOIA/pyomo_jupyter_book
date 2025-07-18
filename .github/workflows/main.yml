@@ -41,7 +41,6 @@ jobs:
         create-args: >-
           -c conda-forge
           ipopt
-        cache-environment: true
       continue-on-error: true
 
     - name: Add IPOPT to PATH
@@ -59,16 +58,7 @@ jobs:
         pip install -r requirements.txt
         pip install openpyxl
 
-    # Cache executed notebooks between runs for faster builds
-    - name: Cache executed notebooks
-      uses: actions/cache@v4
-      with:
-        path: _build/.jupyter_cache
-        key: jupyter-book-cache-${{ hashFiles('requirements.txt') }}-${{ hashFiles('_config.yml') }}
-        restore-keys: |
-          jupyter-book-cache-${{ hashFiles('requirements.txt') }}-
-          jupyter-book-cache-
-      continue-on-error: true
+
 
     # Build the book
     - name: Build the book
