@@ -49,7 +49,7 @@ jobs:
 
     - name: Upload build artifacts on failure
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: build-logs
         path: |
@@ -102,3 +102,53 @@ jobs:
         for f in .github/workflows/*.yml; do
           python -c "import yaml; yaml.safe_load(open('$f'))"
         done
+
+  build-and-test-deployment:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install system dependencies
+      run: |
+        sudo apt update
+        sudo apt-get install -y -qq glpk-utils coinor-cbc
+
+    - name: Install Python dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Cache executed notebooks
+      uses: actions/cache@v4
+      with:
+        path: _build/.jupyter_cache
+        key: jupyter-book-cache-pr-${{ hashFiles('requirements.txt') }}-${{ hashFiles('_config.yml') }}
+        restore-keys: |
+          jupyter-book-cache-pr-${{ hashFiles('requirements.txt') }}-
+          jupyter-book-cache-pr-
+
+    - name: Build the book for deployment testing
+      run: |
+        jupyter-book build . --keep-going
+
+    - name: Check deployment build success
+      run: |
+        if [ ! -f "_build/html/index.html" ]; then
+          echo "Error: index.html was not generated"
+          exit 1
+        fi
+        echo "Deployment build completed successfully"
+
+    - name: Upload book as artifact for deployment verification
+      uses: actions/upload-artifact@v4
+      with:
+        name: jupyter-book-html-pr-${{ github.event.number }}
+        path: _build/html/
+        retention-days: 7
