@@ -1,0 +1,47 @@
+{
+  "name": "Pyomo Jupyter Book Development",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.flake8",
+        "ms-python.black-formatter",
+        "ms-toolsai.jupyter",
+        "ms-vscode.vscode-github-copilot",
+        "ms-vscode.vscode-github-copilot-chat",
+        "redhat.vscode-yaml",
+        "yzhang.markdown-all-in-one"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.formatting.provider": "black",
+        "python.linting.enabled": true,
+        "python.linting.flake8Enabled": true,
+        "jupyter.interactiveWindow.collapseCellInputCode": "firstLine",
+        "files.associations": {
+          "*.yml": "yaml",
+          "*.yaml": "yaml"
+        }
+      }
+    }
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  "postCreateCommand": "pip install -r requirements.txt && pip install pytest flake8 black",
+
+  "remoteUser": "vscode",
+
+  "forwardPorts": [8000, 8888],
+
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ],
+
+  "workspaceFolder": "/workspace"
+}

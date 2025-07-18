@@ -5,3 +5,6 @@ pandas
 pyomo
 openpyxl
 scipy
+pytest
+nbconvert
+nbformat

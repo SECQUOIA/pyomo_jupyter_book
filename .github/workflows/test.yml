@@ -1,0 +1,104 @@
+name: Test PR
+
+# Run tests on pull requests to ensure quality
+on:
+  pull_request:
+    branches: [main, master]
+  # Also allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install system dependencies
+      run: |
+        sudo apt update
+        sudo apt-get install -y -qq glpk-utils coinor-cbc
+
+    - name: Install Python dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest nbconvert nbformat
+
+    - name: Run structure tests
+      run: |
+        pytest tests/test_structure.py -v
+
+    - name: Run build tests
+      run: |
+        pytest tests/test_build.py -v
+
+    - name: Run notebook validation tests
+      run: |
+        pytest tests/test_notebooks.py -v -k "not slow"
+
+    - name: Test book build
+      run: |
+        jupyter-book build . --warningiserror --keep-going
+
+    - name: Upload build artifacts on failure
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-logs
+        path: |
+          _build/html/reports/
+          _build/.jupyter_cache/
+        retention-days: 5
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install linting dependencies
+      run: |
+        pip install --upgrade pip
+        pip install flake8 black
+
+    - name: Check Python code style with Black
+      run: |
+        # Check if there are any Python files to format
+        if find . -name "*.py" -not -path "./_build/*" -not -path "./venv/*" | grep -q .; then
+          black --check --diff .
+        else
+          echo "No Python files found to check"
+        fi
+
+    - name: Lint Python code with flake8
+      run: |
+        # Lint Python files if they exist
+        if find . -name "*.py" -not -path "./_build/*" -not -path "./venv/*" | grep -q .; then
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        else
+          echo "No Python files found to lint"
+        fi
+
+    - name: Check YAML files
+      run: |
+        # Check YAML syntax for config files
+        python -c "import yaml; yaml.safe_load(open('_config.yml'))"
+        python -c "import yaml; yaml.safe_load(open('_toc.yml'))"
+        # Check workflow files
+        for f in .github/workflows/*.yml; do
+          python -c "import yaml; yaml.safe_load(open('$f'))"
+        done
