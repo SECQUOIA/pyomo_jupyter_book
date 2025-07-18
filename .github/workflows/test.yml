@@ -72,7 +72,7 @@ jobs:
     - name: Install linting dependencies
       run: |
         pip install --upgrade pip
-        pip install flake8 black
+        pip install flake8 black pyyaml
 
     - name: Check Python code style with Black
       run: |
