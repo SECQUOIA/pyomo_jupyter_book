@@ -1,0 +1,114 @@
+Traceback (most recent call last):
+  File "/home/runner/.local/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/.local/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/runner/.local/lib/python3.12/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/runner/.local/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/runner/.local/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/runner/.local/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pyomo.environ as pyo
+
+model = pyo.ConcreteModel()
+
+model.x = pyo.Var(initialize=5.0)
+model.y = pyo.Var(initialize=5.0)
+
+def obj_rule(m):
+    return (m.x-1.01)**2 + m.y**2
+model.obj = pyo.Objective(rule=obj_rule)
+
+def con_rule(m):
+    return (m.x - 1.0) / m.y == 1.0
+model.con = pyo.Constraint(rule=con_rule)
+
+ipopt_runner_path = "/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt"
+solver = pyo.SolverFactory('ipopt', executable=ipopt_runner_path)
+solver.solve(model, tee=True)
+
+print(pyo.value(model.x))
+print(pyo.value(model.y))
+------------------
+
+----- stdout -----
+WARNING: Failed to create solver with name 'ipopt': Failed to set executable
+for solver ipopt. File with
+name=/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt
+either does not exist or it is not executable. To skip this validation, call
+set_executable with validate=False.
+Traceback (most recent call last):
+  File "/home/runner/.local/lib/python3.12/site-packages/pyomo/opt/base/solvers.py", line 148, in __call__
+    opt = self._cls[_name](**kwds)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/lib/python3.12/site-packages/pyomo/solvers/plugins/solvers/IPOPT.py", line 44, in __init__
+    super(IPOPT, self).__init__(**kwds)
+  File "/home/runner/.local/lib/python3.12/site-packages/pyomo/opt/solver/shellcmd.py", line 66, in __init__
+    self.set_executable(name=executable, validate=validate)
+  File "/home/runner/.local/lib/python3.12/site-packages/pyomo/opt/solver/shellcmd.py", line 115, in set_executable
+    raise ValueError(
+ValueError: Failed to set executable for solver ipopt. File with name=/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt either does not exist or it is not executable. To skip this validation, call set_executable with validate=False.
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mRuntimeError[39m                              Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 18[39m
+[32m     16[39m ipopt_runner_path = [33m"[39m[33m/home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt[39m[33m"[39m
+[32m     17[39m solver = pyo.SolverFactory([33m'[39m[33mipopt[39m[33m'[39m, executable=ipopt_runner_path)
+[32m---> [39m[32m18[39m [43msolver[49m[43m.[49m[43msolve[49m[43m([49m[43mmodel[49m[43m,[49m[43m [49m[43mtee[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+[32m     20[39m [38;5;28mprint[39m(pyo.value(model.x))
+[32m     21[39m [38;5;28mprint[39m(pyo.value(model.y))
+
+[36mFile [39m[32m~/.local/lib/python3.12/site-packages/pyomo/opt/base/solvers.py:99[39m, in [36mUnknownSolver.solve[39m[34m(self, *args, **kwds)[39m
+[32m     97[39m [38;5;28;01mdef[39;00m [34msolve[39m([38;5;28mself[39m, *args, **kwds):
+[32m     98[39m [38;5;250m    [39m[33;03m"""Perform optimization and return an SolverResults object."""[39;00m
+[32m---> [39m[32m99[39m     [38;5;28;43mself[39;49m[43m.[49m[43m_solver_error[49m[43m([49m[33;43m'[39;49m[33;43msolve[39;49m[33;43m'[39;49m[43m)[49m
+
+[36mFile [39m[32m~/.local/lib/python3.12/site-packages/pyomo/opt/base/solvers.py:116[39m, in [36mUnknownSolver._solver_error[39m[34m(self, method_name)[39m
+[32m    115[39m     [38;5;28;01mdef[39;00m [34m_solver_error[39m([38;5;28mself[39m, method_name):
+[32m--> [39m[32m116[39m         [38;5;28;01mraise[39;00m [38;5;167;01mRuntimeError[39;00m(
+[32m    117[39m [38;5;250m            [39m[33;03m"""Attempting to use an unavailable solver.[39;00m
+[32m    118[39m 
+[32m    119[39m [33;03mThe SolverFactory was unable to create the solver "%s"[39;00m
+[32m    120[39m [33;03mand returned an UnknownSolver object.  This error is raised at the point[39;00m
+[32m    121[39m [33;03mwhere the UnknownSolver object was used as if it were valid (by calling[39;00m
+[32m    122[39m [33;03mmethod "%s").[39;00m
+[32m    123[39m 
+[32m    124[39m [33;03mThe original solver was created with the following parameters:[39;00m
+[32m    125[39m [33;03m\t"""[39;00m
+[32m    126[39m             % ([38;5;28mself[39m.type, method_name)
+[32m    127[39m             + [33m"[39m[38;5;130;01m\n[39;00m[38;5;130;01m\t[39;00m[33m"[39m.join([33m"[39m[38;5;132;01m%s[39;00m[33m: [39m[38;5;132;01m%s[39;00m[33m"[39m % i [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m [38;5;28msorted[39m([38;5;28mself[39m._kwds.items()))
+[32m    128[39m             + [33m"[39m[38;5;130;01m\n[39;00m[38;5;130;01m\t[39;00m[33m_args: [39m[38;5;132;01m%s[39;00m[33m"[39m % ([38;5;28mself[39m._args,)
+[32m    129[39m             + [33m"[39m[38;5;130;01m\n[39;00m[38;5;130;01m\t[39;00m[33moptions: [39m[38;5;132;01m%s[39;00m[33m"[39m % ([38;5;28mself[39m.options,)
+[32m    130[39m         )
+
+[31mRuntimeError[39m: Attempting to use an unavailable solver.
+
+The SolverFactory was unable to create the solver "ipopt"
+and returned an UnknownSolver object.  This error is raised at the point
+where the UnknownSolver object was used as if it were valid (by calling
+method "solve").
+
+The original solver was created with the following parameters:
+	executable: /home/runner/work/pyomo_jupyter_book/pyomo_jupyter_book/solvers/ipopt
+	type: ipopt
+	_args: ()
+	options: {}
+

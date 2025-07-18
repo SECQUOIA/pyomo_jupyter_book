@@ -29,10 +29,10 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -504,75 +504,39 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ipopt 3.13.2: 
-
-******************************************************************************
-This program contains Ipopt, a library for large-scale nonlinear optimization.
- Ipopt is released as open source code under the Eclipse Public License (EPL).
-         For more information visit http://projects.coin-or.org/Ipopt
-
-This version of Ipopt was compiled from source code available at
-    https://github.com/IDAES/Ipopt as part of the Institute for the Design of
-    Advanced Energy Systems Process Systems Engineering Framework (IDAES PSE
-    Framework) Copyright (c) 2018-2019. See https://github.com/IDAES/idaes-pse.
-
-This version of Ipopt was compiled using HSL, a collection of Fortran codes
-    for large-scale scientific computation.  All technical papers, sales and
-    publicity material resulting from use of the HSL codes within IPOPT must
-    contain the following acknowledgement:
-        HSL, a collection of Fortran codes for large-scale scientific
-        computation. See http://www.hsl.rl.ac.uk.
-******************************************************************************
-
-This is Ipopt version 3.13.2, running with linear solver ma27.
-
-Number of nonzeros in equality constraint Jacobian...:       45
-Number of nonzeros in inequality constraint Jacobian.:        0
-Number of nonzeros in Lagrangian Hessian.............:        7
-
-Total number of variables............................:       14
-                     variables with only lower bounds:        0
-                variables with lower and upper bounds:        0
-                     variables with only upper bounds:        0
-Total number of equality constraints.................:       14
-Total number of inequality constraints...............:        0
-        inequality constraints with only lower bounds:        0
-   inequality constraints with lower and upper bounds:        0
-        inequality constraints with only upper bounds:        0
-
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-   0  1.0000000e+00 3.00e+00 0.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
-   1  1.0000000e+00 2.29e+00 0.00e+00  -1.0 7.00e+00    -  1.00e+00 1.00e+00H  1
-   2  1.0000000e+00 1.92e-01 0.00e+00  -1.0 1.53e+00    -  1.00e+00 1.00e+00h  1
-   3  1.0000000e+00 2.37e-03 0.00e+00  -2.5 1.02e-01    -  1.00e+00 1.00e+00h  1
-   4  1.0000000e+00 5.51e-07 0.00e+00  -3.8 1.37e-03    -  1.00e+00 1.00e+00h  1
-   5  1.0000000e+00 7.77e-15 0.00e+00  -8.6 4.11e-07    -  1.00e+00 1.00e+00h  1
-
-Number of Iterations....: 5
-
-                                   (scaled)                 (unscaled)
-Objective...............:   1.0000000000000000e+00    1.0000000000000000e+00
-Dual infeasibility......:   0.0000000000000000e+00    0.0000000000000000e+00
-Constraint violation....:   7.7715611723760958e-15    7.7715611723760958e-15
-Complementarity.........:   0.0000000000000000e+00    0.0000000000000000e+00
-Overall NLP error.......:   7.7715611723760958e-15    7.7715611723760958e-15
-
-
-Number of objective function evaluations             = 7
-Number of objective gradient evaluations             = 6
-Number of equality constraint evaluations            = 7
-Number of inequality constraint evaluations          = 0
-Number of equality constraint Jacobian evaluations   = 6
-Number of inequality constraint Jacobian evaluations = 0
-Number of Lagrangian Hessian evaluations             = 5
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.002
-Total CPU secs in NLP function evaluations           =      0.000
-
-EXIT: Optimal Solution Found.
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: Could not locate the &#39;ipopt&#39; executable, which is required for solver
+ipopt
 </pre></div>
 </div>
-<img alt="../../_images/85edcb0f220c11a5f102088f6b31fb226a2e7382412a656e0d616648c2e207a4.png" src="../../_images/85edcb0f220c11a5f102088f6b31fb226a2e7382412a656e0d616648c2e207a4.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ApplicationError</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">30</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="n">discretizer</span><span class="o">.</span><span class="n">apply_to</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">nfe</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncp</span><span class="o">=</span><span class="mi">3</span> <span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;LAGRANGE-RADAU&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">solver</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">30</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="n">analytical_t</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">101</span><span class="p">)]</span>
+
+<span class="nn">File ~/.local/lib/python3.12/site-packages/pyomo/opt/base/solvers.py:534,</span> in <span class="ni">OptSolver.solve</span><span class="nt">(self, *args, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">531</span> <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">532</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Solve the problem&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">534</span>     <span class="bp">self</span><span class="o">.</span><span class="n">available</span><span class="p">(</span><span class="n">exception_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span>     <span class="c1">#</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span>     <span class="c1"># If the inputs are models, then validate that they have been</span>
+<span class="g g-Whitespace">    </span><span class="mi">537</span>     <span class="c1"># constructed! Collect suffix names to try and import from solution.</span>
+<span class="g g-Whitespace">    </span><span class="mi">538</span>     <span class="c1">#</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span>     <span class="kn">from</span> <span class="nn">pyomo.core.base.block</span> <span class="kn">import</span> <span class="n">BlockData</span>
+
+<span class="nn">File ~/.local/lib/python3.12/site-packages/pyomo/opt/solver/shellcmd.py:140,</span> in <span class="ni">SystemCallSolver.available</span><span class="nt">(self, exception_flag)</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>     <span class="k">if</span> <span class="n">exception_flag</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No executable found for solver &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">140</span>         <span class="k">raise</span> <span class="n">ApplicationError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span>     <span class="k">return</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span> <span class="k">return</span> <span class="kc">True</span>
+
+<span class="ne">ApplicationError</span>: No executable found for solver &#39;ipopt&#39;
+</pre></div>
+</div>
 </div>
 </div>
 </section>
