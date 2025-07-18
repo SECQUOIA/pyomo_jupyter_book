@@ -30,9 +30,10 @@ jobs:
       with:
         environment-name: solvers
         create-args: >-
+          -c conda-forge
           ipopt
-        channels: conda-forge
         cache-environment: true
+      continue-on-error: true
 
     - name: Add IPOPT to PATH
       run: |
@@ -138,9 +139,10 @@ jobs:
       with:
         environment-name: solvers
         create-args: >-
+          -c conda-forge
           ipopt
-        channels: conda-forge
         cache-environment: true
+      continue-on-error: true
 
     - name: Add IPOPT to PATH
       run: |
@@ -159,6 +161,7 @@ jobs:
         restore-keys: |
           jupyter-book-cache-pr-${{ hashFiles('requirements.txt') }}-
           jupyter-book-cache-pr-
+      continue-on-error: true
 
     - name: Build the book for deployment testing
       run: |
