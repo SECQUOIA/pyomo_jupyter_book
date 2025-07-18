@@ -1,4 +1,10 @@
 # pyomo_jupyter_book
+
+[![Build Status](https://github.com/SECQUOIA/pyomo_jupyter_book/workflows/Deploy%20Jupyter%20Book/badge.svg)](https://github.com/SECQUOIA/pyomo_jupyter_book/actions/workflows/main.yml)
+[![Test Status](https://github.com/SECQUOIA/pyomo_jupyter_book/workflows/Test%20PR/badge.svg)](https://github.com/SECQUOIA/pyomo_jupyter_book/actions/workflows/test.yml)
+[![License](https://img.shields.io/github/license/SECQUOIA/pyomo_jupyter_book)](https://github.com/SECQUOIA/pyomo_jupyter_book/blob/main/LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://secquoia.github.io/pyomo_jupyter_book/intro.html)
+
 A conversion of the Pyomo workshop into a jupyter book
 
 Find the companion website [here](https://secquoia.github.io/pyomo_jupyter_book/intro.html)
