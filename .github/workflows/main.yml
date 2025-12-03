@@ -63,7 +63,7 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
-        jupyter-book build . --keep-going
+        jupyter-book build .
 
     # Check for critical build errors
     - name: Check build success
