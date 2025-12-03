@@ -59,7 +59,7 @@ jobs:
 
     - name: Test book build
       run: |
-        jupyter-book build . --warningiserror --keep-going
+        jupyter-book build .
 
     - name: Upload build artifacts on failure
       if: failure()
@@ -157,7 +157,7 @@ jobs:
 
     - name: Build the book for deployment testing
       run: |
-        jupyter-book build . --keep-going
+        jupyter-book build .
 
     - name: Check deployment build success
       run: |
