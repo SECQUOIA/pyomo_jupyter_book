@@ -3,6 +3,7 @@
 import pytest
 import subprocess
 import shutil
+import yaml
 
 
 def test_jupyter_book_build(project_root):
@@ -42,12 +43,11 @@ def test_jupyter_book_build(project_root):
     assert "<html" in content.lower(), "intro.html doesn't appear to be valid HTML"
 
 
-def test_config_validation():
+def test_config_validation(project_root):
     """Test that Jupyter Book configuration is valid."""
-    import yaml
-    
     # Validate _config.yml by loading it
-    with open("_config.yml", "r") as f:
+    config_file = project_root / "_config.yml"
+    with open(config_file, "r") as f:
         config = yaml.safe_load(f)
     
     # Check for essential config fields
@@ -58,8 +58,6 @@ def test_config_validation():
 
 def test_toc_validation(project_root):
     """Test that table of contents is properly structured."""
-    import yaml
-    
     # Validate _toc.yml by loading it
     toc_file = project_root / "_toc.yml"
     with open(toc_file, "r") as f:
