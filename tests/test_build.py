@@ -49,7 +49,7 @@ def test_config_validation(project_root):
     config_file = project_root / "_config.yml"
     with open(config_file, "r") as f:
         config = yaml.safe_load(f)
-    
+
     # Check for essential config fields
     assert "title" in config, "Config must have a title"
     # Config is valid if we can load it without errors
@@ -62,12 +62,13 @@ def test_toc_validation(project_root):
     toc_file = project_root / "_toc.yml"
     with open(toc_file, "r") as f:
         toc = yaml.safe_load(f)
-    
+
     # Check for essential TOC structure
     assert toc is not None, "TOC file is empty or invalid"
     # Most TOCs have either 'chapters' or 'parts' or 'format'
-    assert any(key in toc for key in ["chapters", "parts", "format", "root"]), \
-        "TOC must have expected structure (chapters, parts, format, or root)"
+    assert any(
+        key in toc for key in ["chapters", "parts", "format", "root"]
+    ), "TOC must have expected structure (chapters, parts, format, or root)"
 
 
 def test_clean_build(project_root):
