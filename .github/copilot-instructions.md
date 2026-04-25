@@ -14,7 +14,8 @@ This is a Jupyter Book project that converts Pyomo (Python Optimization Modeling
 - `Material/` - Contains all the Jupyter notebooks organized by topic
 - `_config.yml` - Jupyter Book configuration
 - `_toc.yml` - Table of contents structure  
-- `requirements.txt` - Python dependencies
+- `requirements.in` - Direct Python dependency inputs
+- `requirements.txt` - Generated pinned Python dependencies
 - `tests/` - Test files for validation
 - `.github/workflows/` - CI/CD workflows
 
@@ -80,7 +81,7 @@ else:
 - Data files: Use lowercase with underscores (e.g., "transportation_data.xlsx")
 
 ## Dependencies and Environment
-- Stick to the packages in requirements.txt unless absolutely necessary
+- Edit requirements.in for direct dependency changes, then regenerate requirements.txt with uv
 - Prefer open-source solvers (GLPK, CBC) for examples
 - Include installation instructions for specialized solvers when needed
 - Test with the specified Python version in the workflows

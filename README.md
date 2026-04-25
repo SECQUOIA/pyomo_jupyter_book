@@ -11,11 +11,10 @@ Find the companion website [here](https://secquoia.github.io/pyomo_jupyter_book/
 
 
 ### How to build locally
-Ensure you've opened the directory of the jupyter-book as the working directory. You should have a _config.yml and _toc.yml file in this directory. Make sure you're in a virtual environment. Install jupyter-book is using:
-`pip install jupyter-book`
-then
+Ensure you've opened the directory of the jupyter-book as the working directory. You should have a _config.yml and _toc.yml file in this directory. Make sure you're in a virtual environment, then install the project dependencies:
+`pip install -r requirements.txt`
+then build the current working directory into a jupyter-book:
 `jupyter-book build ./`
-to build the current working directory into a jupyter-book.
 
 The html is in the folder `_build\html\` and you can preview the book by opening the file `_build\html\index.html` in your browser, using VSCode's preview functionality (recommended), or running a the file via a browser executable in command line.
 
@@ -32,3 +31,9 @@ The -b tag should be followed by the branch which you wish to deploy the html to
 The -n tag indicates building without Jekyll
 
 The -p and -f tags indicate force pushing this branch after committing it.
+
+### Dependency management
+Edit `requirements.in` when adding or removing direct dependencies. The pinned `requirements.txt` file is generated with uv:
+`uv pip compile requirements.in --universal --python-version 3.11 -o requirements.txt`
+
+The `venv_requirements.txt` file is kept as a compatibility alias for older setup notes and delegates to `requirements.txt`.
