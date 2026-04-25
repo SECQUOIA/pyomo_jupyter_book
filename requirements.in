@@ -1,0 +1,10 @@
+jupyter-book<2.0
+matplotlib
+numpy
+pandas
+pyomo
+openpyxl
+scipy
+pytest
+nbconvert
+nbformat
