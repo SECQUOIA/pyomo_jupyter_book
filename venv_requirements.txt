@@ -52,7 +52,7 @@ packaging==24.1
 pandas==2.2.3
 parso==0.8.4
 pexpect==4.9.0
-pillow==12.1.1
+pillow==12.2.0
 platformdirs==4.3.6
 ply==3.11
 prompt_toolkit==3.0.48
@@ -62,7 +62,7 @@ pure_eval==0.2.3
 pybtex==0.24.0
 pybtex-docutils==1.0.3
 pydata-sphinx-theme==0.15.4
-Pygments==2.18.0
+Pygments==2.20.0
 Pyomo==6.8.0
 pyparsing==3.2.0
 python-dateutil==2.9.0.post0
@@ -70,7 +70,7 @@ pytz==2024.2
 PyYAML==6.0.2
 pyzmq==26.2.0
 referencing==0.35.1
-requests~=2.32.4
+requests~=2.33.0
 rpds-py==0.20.0
 scipy==1.14.1
 six==1.16.0
