@@ -163,3 +163,24 @@ def test_notebook_imports(material_dir):
         # Pyomo notebooks should import pyomo
         if not pyomo_imported and "pyomo" in str(notebook_path).lower():
             print(f"Warning: Pyomo notebook {notebook_path} doesn't import pyomo")
+
+
+def test_notebooks_install_pyomo_in_colab(material_dir):
+    """Ensure notebooks install Pyomo automatically when running in Colab."""
+    notebooks = get_all_notebooks(material_dir)
+
+    for notebook_path in notebooks:
+        with open(notebook_path, "r", encoding="utf-8") as f:
+            nb = nbformat.read(f, as_version=4)
+
+        has_colab_install = any(
+            cell.cell_type == "code"
+            and "google.colab" in cell.source
+            and "pip" in cell.source
+            and "pyomo" in cell.source
+            for cell in nb.cells
+        )
+
+        assert (
+            has_colab_install
+        ), f"Notebook {notebook_path} missing Colab Pyomo install cell"
