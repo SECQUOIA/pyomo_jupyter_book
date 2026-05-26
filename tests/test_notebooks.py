@@ -1,8 +1,16 @@
 """Test notebook execution and validation."""
 
-import pytest
+import ast
+
 import nbformat
+import pytest
 from nbconvert.preprocessors import ExecutePreprocessor
+
+SOLVER_SETUP_TOKENS = {
+    "cbc": ("cbc", "coinor-cbc"),
+    "glpk": ("glpk", "glpsol", "glpk-utils"),
+    "ipopt": ("ipopt", "idaes", "get-extensions"),
+}
 
 
 def get_all_notebooks(material_dir):
@@ -13,6 +21,41 @@ def get_all_notebooks(material_dir):
         if ".ipynb_checkpoints" not in str(notebook_path):
             notebook_files.append(notebook_path)
     return notebook_files
+
+
+def get_cell_source(cell):
+    """Return a notebook cell source as text."""
+    source = cell.source
+    if isinstance(source, list):
+        return "".join(source)
+    return source
+
+
+def get_required_solvers(nb):
+    """Collect literal solver names used in Pyomo SolverFactory calls."""
+    solvers = set()
+
+    for cell in nb.cells:
+        if cell.cell_type != "code":
+            continue
+
+        try:
+            tree = ast.parse(get_cell_source(cell))
+        except SyntaxError:
+            continue
+
+        for node in ast.walk(tree):
+            if (
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and node.func.attr == "SolverFactory"
+                and node.args
+                and isinstance(node.args[0], ast.Constant)
+                and isinstance(node.args[0].value, str)
+            ):
+                solvers.add(node.args[0].value.lower())
+
+    return solvers
 
 
 def test_notebooks_exist(material_dir):
@@ -166,21 +209,40 @@ def test_notebook_imports(material_dir):
 
 
 def test_notebooks_install_pyomo_in_colab(material_dir):
-    """Ensure notebooks install Pyomo automatically when running in Colab."""
+    """Ensure notebooks install Pyomo and required solvers in Colab."""
     notebooks = get_all_notebooks(material_dir)
 
     for notebook_path in notebooks:
         with open(notebook_path, "r", encoding="utf-8") as f:
             nb = nbformat.read(f, as_version=4)
 
-        has_colab_install = any(
-            cell.cell_type == "code"
-            and "google.colab" in cell.source
-            and "pip" in cell.source
-            and "pyomo" in cell.source
+        setup_sources = [
+            get_cell_source(cell)
             for cell in nb.cells
+            if cell.cell_type == "code" and "google.colab" in get_cell_source(cell)
+        ]
+
+        assert setup_sources, f"Notebook {notebook_path} missing Colab setup cell"
+
+        setup_source = "\n".join(setup_sources)
+        assert (
+            "pip" in setup_source and "pyomo" in setup_source
+        ), f"Notebook {notebook_path} missing Colab Pyomo install logic"
+
+        required_solvers = get_required_solvers(nb)
+        unsupported_solvers = required_solvers - set(SOLVER_SETUP_TOKENS)
+        assert not unsupported_solvers, (
+            f"Notebook {notebook_path} uses unsupported solver setup: "
+            f"{sorted(unsupported_solvers)}"
         )
 
-        assert (
-            has_colab_install
-        ), f"Notebook {notebook_path} missing Colab Pyomo install cell"
+        for solver in required_solvers:
+            missing_tokens = [
+                token
+                for token in SOLVER_SETUP_TOKENS[solver]
+                if token not in setup_source
+            ]
+            assert not missing_tokens, (
+                f"Notebook {notebook_path} missing Colab setup for {solver}: "
+                f"{missing_tokens}"
+            )
