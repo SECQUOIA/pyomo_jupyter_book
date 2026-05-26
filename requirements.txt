@@ -4,6 +4,8 @@ accessible-pygments==0.0.5
     # via pydata-sphinx-theme
 alabaster==0.7.16
     # via sphinx
+appnope==0.1.4 ; sys_platform == 'darwin'
+    # via ipykernel
 asttokens==3.0.1
     # via stack-data
 attrs==26.1.0
@@ -19,10 +21,12 @@ beautifulsoup4==4.14.3
     # via
     #   nbconvert
     #   pydata-sphinx-theme
-bleach[css]==6.3.0
+bleach==6.3.0
     # via nbconvert
 certifi==2026.4.22
     # via requests
+cffi==2.0.0 ; implementation_name == 'pypy'
+    # via pyzmq
 charset-normalizer==3.4.7
     # via requests
 click==8.3.3
@@ -30,6 +34,12 @@ click==8.3.3
     #   jupyter-book
     #   jupyter-cache
     #   sphinx-external-toc
+colorama==0.4.6 ; sys_platform == 'win32'
+    # via
+    #   click
+    #   ipython
+    #   pytest
+    #   sphinx
 comm==0.2.3
     # via ipykernel
 contourpy==1.3.3
@@ -58,7 +68,7 @@ fastjsonschema==2.21.2
     # via nbformat
 fonttools==4.62.1
     # via matplotlib
-greenlet==3.4.0
+greenlet==3.4.0 ; platform_machine == 'AMD64' or platform_machine == 'WIN32' or platform_machine == 'aarch64' or platform_machine == 'amd64' or platform_machine == 'ppc64le' or platform_machine == 'win32' or platform_machine == 'x86_64'
     # via sqlalchemy
 idna==3.13
     # via requests
@@ -181,7 +191,7 @@ pandocfilters==1.5.1
     # via nbconvert
 parso==0.8.6
     # via jedi
-pexpect==4.9.0
+pexpect==4.9.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
     # via ipython
 pillow==12.2.0
     # via matplotlib
@@ -195,7 +205,7 @@ psutil==7.2.2
     # via
     #   ipykernel
     #   ipython
-ptyprocess==0.7.0
+ptyprocess==0.7.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
     # via pexpect
 pure-eval==0.2.3
     # via stack-data
@@ -205,6 +215,8 @@ pybtex==0.26.1
     #   sphinxcontrib-bibtex
 pybtex-docutils==1.0.3
     # via sphinxcontrib-bibtex
+pycparser==3.0 ; implementation_name == 'pypy'
+    # via cffi
 pydata-sphinx-theme==0.16.1
     # via sphinx-book-theme
 pygments==2.20.0
@@ -251,6 +263,8 @@ rpds-py==0.30.0
     #   referencing
 scipy==1.17.1
     # via -r requirements.in
+setuptools==82.0.1
+    # via sphinx-togglebutton
 six==1.17.0
     # via python-dateutil
 snowballstemmer==3.0.1
@@ -332,9 +346,13 @@ traitlets==5.14.3
 typing-extensions==4.15.0
     # via
     #   beautifulsoup4
+    #   ipython
     #   myst-nb
     #   pydata-sphinx-theme
+    #   referencing
     #   sqlalchemy
+tzdata==2026.2 ; sys_platform == 'emscripten' or sys_platform == 'win32'
+    # via pandas
 uc-micro-py==2.0.0
     # via linkify-it-py
 urllib3==2.7.0
