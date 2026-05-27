@@ -1,8 +1,16 @@
 """Test notebook execution and validation."""
 
-import pytest
+import ast
+
 import nbformat
+import pytest
 from nbconvert.preprocessors import ExecutePreprocessor
+
+SOLVER_SETUP_TOKENS = {
+    "cbc": ("cbc", "coinor-cbc"),
+    "glpk": ("glpk", "glpsol", "glpk-utils"),
+    "ipopt": ("ipopt", "idaes", "get-extensions"),
+}
 
 
 def get_all_notebooks(material_dir):
@@ -13,6 +21,79 @@ def get_all_notebooks(material_dir):
         if ".ipynb_checkpoints" not in str(notebook_path):
             notebook_files.append(notebook_path)
     return notebook_files
+
+
+def get_cell_source(cell):
+    """Return a notebook cell source as text."""
+    source = cell.source
+    if isinstance(source, list):
+        return "".join(source)
+    return source
+
+
+def get_required_solvers(nb):
+    """Collect literal solver names used in Pyomo SolverFactory calls."""
+    solvers = set()
+
+    for cell in nb.cells:
+        if cell.cell_type != "code":
+            continue
+
+        try:
+            tree = ast.parse(get_cell_source(cell))
+        except SyntaxError:
+            continue
+
+        for node in ast.walk(tree):
+            if (
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and node.func.attr == "SolverFactory"
+                and node.args
+                and isinstance(node.args[0], ast.Constant)
+                and isinstance(node.args[0].value, str)
+            ):
+                solvers.add(node.args[0].value.lower())
+
+    return solvers
+
+
+def get_declared_colab_solvers(setup_source, notebook_path):
+    """Collect solvers declared by the Colab setup cell."""
+    try:
+        tree = ast.parse(setup_source)
+    except SyntaxError as e:
+        pytest.fail(f"Notebook {notebook_path} has invalid Colab setup syntax: {e}")
+
+    declarations = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign) and any(
+            isinstance(target, ast.Name) and target.id == "required_solvers"
+            for target in node.targets
+        ):
+            try:
+                declarations.append(ast.literal_eval(node.value))
+            except ValueError as e:
+                pytest.fail(
+                    f"Notebook {notebook_path} must declare required_solvers "
+                    f"as a literal collection: {e}"
+                )
+
+    assert len(declarations) == 1, (
+        f"Notebook {notebook_path} must declare required_solvers exactly once "
+        "in the Colab setup cell"
+    )
+
+    declared_solvers = declarations[0]
+    assert isinstance(declared_solvers, (set, list, tuple)), (
+        f"Notebook {notebook_path} required_solvers must be a literal "
+        "set, list, or tuple"
+    )
+    assert all(
+        isinstance(solver, str) for solver in declared_solvers
+    ), f"Notebook {notebook_path} required_solvers entries must be strings"
+
+    return {solver.lower() for solver in declared_solvers}
 
 
 def test_notebooks_exist(material_dir):
@@ -163,3 +244,52 @@ def test_notebook_imports(material_dir):
         # Pyomo notebooks should import pyomo
         if not pyomo_imported and "pyomo" in str(notebook_path).lower():
             print(f"Warning: Pyomo notebook {notebook_path} doesn't import pyomo")
+
+
+def test_notebooks_install_pyomo_in_colab(material_dir):
+    """Ensure notebooks install Pyomo and required solvers in Colab."""
+    notebooks = get_all_notebooks(material_dir)
+
+    for notebook_path in notebooks:
+        with open(notebook_path, "r", encoding="utf-8") as f:
+            nb = nbformat.read(f, as_version=4)
+
+        setup_sources = [
+            get_cell_source(cell)
+            for cell in nb.cells
+            if cell.cell_type == "code" and "google.colab" in get_cell_source(cell)
+        ]
+
+        assert (
+            len(setup_sources) == 1
+        ), f"Notebook {notebook_path} must have exactly one Colab setup cell"
+
+        setup_source = setup_sources[0]
+        assert (
+            "pip" in setup_source and "pyomo" in setup_source
+        ), f"Notebook {notebook_path} missing Colab Pyomo install logic"
+
+        required_solvers = get_required_solvers(nb)
+        unsupported_solvers = required_solvers - set(SOLVER_SETUP_TOKENS)
+        assert not unsupported_solvers, (
+            f"Notebook {notebook_path} uses unsupported solver setup: "
+            f"{sorted(unsupported_solvers)}"
+        )
+
+        declared_solvers = get_declared_colab_solvers(setup_source, notebook_path)
+        assert declared_solvers == required_solvers, (
+            f"Notebook {notebook_path} Colab required_solvers "
+            f"{sorted(declared_solvers)} do not match SolverFactory usage "
+            f"{sorted(required_solvers)}"
+        )
+
+        for solver in required_solvers:
+            missing_tokens = [
+                token
+                for token in SOLVER_SETUP_TOKENS[solver]
+                if token not in setup_source
+            ]
+            assert not missing_tokens, (
+                f"Notebook {notebook_path} missing Colab setup for {solver}: "
+                f"{missing_tokens}"
+            )
