@@ -1,14 +1,18 @@
-# Book settings
-# Learn more at https://jupyterbook.org/customize/config.html
+################################################################################
+# Legacy Jupyter Book 1 configuration.
+#
+# Jupyter Book 2 reads myst.yml for the site configuration and table of contents.
+# This file is retained for compatibility with older local tooling only.
+################################################################################
 
 title: Pyomo Workshop
 author: Ben Murray, David Bernal
 logo: logo.png
 
-# Force re-execution of notebooks on each build.
-# See https://jupyterbook.org/content/execute.html
+# Normal Jupyter Book 2 builds render committed notebook outputs without
+# executing notebooks. Keep legacy builds from forcing notebook re-execution.
 execute:
-  execute_notebooks: force
+  execute_notebooks: "off"
 
 # Define the name of the latex output file for PDF builds
 latex:

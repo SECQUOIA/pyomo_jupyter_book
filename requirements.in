@@ -1,4 +1,4 @@
-jupyter-book<2.0
+jupyter-book==2.1.0
 matplotlib
 numpy
 pandas
@@ -8,3 +8,4 @@ scipy
 pytest
 nbconvert
 nbformat
+pyyaml

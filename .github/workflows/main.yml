@@ -52,6 +52,11 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
     - name: Install Python dependencies
       run: |
         pip install --upgrade pip
@@ -60,7 +65,9 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
-        jupyter-book build .
+        jupyter book build --html --ci
+      env:
+        BASE_URL: /pyomo_jupyter_book/
 
     # Check for critical build errors
     - name: Check build success

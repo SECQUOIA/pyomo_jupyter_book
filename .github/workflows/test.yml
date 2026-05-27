@@ -48,6 +48,11 @@ jobs:
       run: |
         echo "${MAMBA_ROOT_PREFIX}/envs/solvers/bin" >> $GITHUB_PATH
 
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
     - name: Install Python dependencies
       run: |
         pip install --upgrade pip
@@ -67,7 +72,13 @@ jobs:
 
     - name: Test book build
       run: |
-        jupyter-book build .
+        jupyter book build --html --ci
+      env:
+        BASE_URL: /pyomo_jupyter_book/
+
+    - name: Test LaTeX export
+      run: |
+        jupyter book build --tex --ci
 
     - name: Upload build artifacts on failure
       if: failure()
@@ -76,7 +87,7 @@ jobs:
         name: build-logs
         path: |
           _build/html/reports/
-          _build/.jupyter_cache/
+          _build/exports/
         retention-days: 5
 
   lint:
@@ -119,7 +130,7 @@ jobs:
       run: |
         # Check YAML syntax for config files
         python -c "import yaml; yaml.safe_load(open('_config.yml'))"
-        python -c "import yaml; yaml.safe_load(open('_toc.yml'))"
+        python -c "import yaml; yaml.safe_load(open('myst.yml'))"
         # Check workflow files
         for f in .github/workflows/*.yml; do
           python -c "import yaml; yaml.safe_load(open('$f'))"
@@ -156,6 +167,11 @@ jobs:
       run: |
         echo "${MAMBA_ROOT_PREFIX}/envs/solvers/bin" >> $GITHUB_PATH
 
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
     - name: Install Python dependencies
       run: |
         pip install --upgrade pip
@@ -163,7 +179,9 @@ jobs:
 
     - name: Build the book for deployment testing
       run: |
-        jupyter-book build .
+        jupyter book build --html --ci
+      env:
+        BASE_URL: /pyomo_jupyter_book/
 
     - name: Check deployment build success
       run: |

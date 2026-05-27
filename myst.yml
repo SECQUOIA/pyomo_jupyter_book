@@ -1,0 +1,114 @@
+version: 1
+project:
+  title: "Pyomo Workshop"
+  authors:
+    - name: Ben Murray
+    - name: David Bernal
+  github: SECQUOIA/pyomo_jupyter_book
+  bibliography:
+    - references.bib
+  exports:
+    - format: tex
+      articles:
+        - intro.md
+        - Material/Pyomo Fundamentals.md
+        - Material/Pyomo Fundamentals/Exercises 1.md
+        - Material/Pyomo Fundamentals/1.1 Knapsack Example.ipynb
+        - Material/Pyomo Fundamentals/1.2 Knapsack with improved printing.ipynb
+        - Material/Pyomo Fundamentals/1.3 Changing data.ipynb
+        - Material/Pyomo Fundamentals/1.4 Loading data from Excel.ipynb
+        - Material/Pyomo Fundamentals/1.5 NLP vs MIP.ipynb
+        - Material/Pyomo Fundamentals/Exercises 2.md
+        - Material/Pyomo Fundamentals/2.1 Knapsack problem with rules.ipynb
+        - Material/Pyomo Fundamentals/2.2 Integer formulation of the knapsack problem.ipynb
+        - Material/Pyomo Fundamentals/Exercises 3.md
+        - Material/Pyomo Fundamentals/3.1 Using the decorator notation for rules.ipynb
+        - Material/Pyomo Fundamentals/3.2 Changing Parameter values.ipynb
+        - Material/Pyomo Fundamentals/3.3 Integer cuts.ipynb
+        - Material/Pyomo Fundamentals/3.4 Putting it all together with the lot sizing example.ipynb
+        - Material/Nonlinear Exercises.md
+        - Material/Nonlinear Exercises/1.1 Alternative Initialization.ipynb
+        - Material/Nonlinear Exercises/1.2 Evaluation errors.ipynb
+        - Material/Nonlinear Exercises/1.3 Alternative Formulations.ipynb
+        - Material/Nonlinear Exercises/1.4 Reactor design problem.ipynb
+        - Material/Dynamic Exercises.md
+        - Material/Dynamic Exercises/param_est1.ipynb
+        - Material/Dynamic Exercises/param_est2.ipynb
+        - Material/Dynamic Exercises/small_colloc.ipynb
+        - Material/Dynamic Exercises/colloc_matrix.ipynb
+        - Material/Dynamic Exercises/small_dae.ipynb
+        - Material/Dynamic Exercises/small_findiff.ipynb
+        - Material/GDP Exercises.md
+        - Material/GDP Exercises/strip_packing.ipynb
+        - Material/References.md
+      output: _build/exports/book.tex
+  toc:
+    - file: intro.md
+    - file: Material/Pyomo Fundamentals.md
+      children:
+        - file: Material/Pyomo Fundamentals/Exercises 1.md
+          children:
+            - file: Material/Pyomo Fundamentals/1.1 Knapsack Example.ipynb
+              title: Knapsack Example
+            - file: Material/Pyomo Fundamentals/1.2 Knapsack with improved printing.ipynb
+              title: Knapsack with improved printing
+            - file: Material/Pyomo Fundamentals/1.3 Changing data.ipynb
+              title: Changing data
+            - file: Material/Pyomo Fundamentals/1.4 Loading data from Excel.ipynb
+              title: Loading data from Excel
+            - file: Material/Pyomo Fundamentals/1.5 NLP vs MIP.ipynb
+              title: NLP vs MIP
+        - file: Material/Pyomo Fundamentals/Exercises 2.md
+          children:
+            - file: Material/Pyomo Fundamentals/2.1 Knapsack problem with rules.ipynb
+              title: Knapsack problem with rules
+            - file: Material/Pyomo Fundamentals/2.2 Integer formulation of the knapsack problem.ipynb
+              title: Integer formulation of the knapsack problem
+        - file: Material/Pyomo Fundamentals/Exercises 3.md
+          children:
+            - file: Material/Pyomo Fundamentals/3.1 Using the decorator notation for rules.ipynb
+              title: Using the decorator notation for rules
+            - file: Material/Pyomo Fundamentals/3.2 Changing Parameter values.ipynb
+              title: Changing Parameter values
+            - file: Material/Pyomo Fundamentals/3.3 Integer cuts.ipynb
+              title: Integer cuts
+            - file: Material/Pyomo Fundamentals/3.4 Putting it all together with the lot sizing example.ipynb
+              title: Putting it all together with the lot sizing example
+    - file: Material/Nonlinear Exercises.md
+      children:
+        - file: Material/Nonlinear Exercises/1.1 Alternative Initialization.ipynb
+          title: Alternative Initialization
+        - file: Material/Nonlinear Exercises/1.2 Evaluation errors.ipynb
+          title: Evaluation errors
+        - file: Material/Nonlinear Exercises/1.3 Alternative Formulations.ipynb
+          title: Alternative Formulations
+        - file: Material/Nonlinear Exercises/1.4 Reactor design problem.ipynb
+          title: Reactor design problem
+    - file: Material/Dynamic Exercises.md
+      children:
+        - file: Material/Dynamic Exercises/param_est1.ipynb
+          title: Parameter estimation 1
+        - file: Material/Dynamic Exercises/param_est2.ipynb
+          title: Parameter estimation 2
+        - file: Material/Dynamic Exercises/small_colloc.ipynb
+          title: Small collocation example
+        - file: Material/Dynamic Exercises/colloc_matrix.ipynb
+          title: Collocation matrix
+        - file: Material/Dynamic Exercises/small_dae.ipynb
+          title: Small DAE example
+        - file: Material/Dynamic Exercises/small_findiff.ipynb
+          title: Small finite difference example
+    - file: Material/GDP Exercises.md
+      children:
+        - file: Material/GDP Exercises/strip_packing.ipynb
+          title: Strip packing
+    - file: Material/References.md
+site:
+  template: book-theme
+  options:
+    folders: true
+    logo: logo.png
+  actions:
+    - title: Open in Colab
+      url: colab.html
+      static: true

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Open in Colab</title>
+  </head>
+  <body>
+    <p>Redirecting to Colab...</p>
+    <p>
+      If you are not redirected,
+      <a href="https://colab.research.google.com/github/SECQUOIA/pyomo_jupyter_book">
+        open the repository in Colab
+      </a>.
+    </p>
+    <script>
+      (function () {
+        const fallback = "https://colab.research.google.com/github/SECQUOIA/pyomo_jupyter_book";
+        const colabBlobBase = "https://colab.research.google.com/github/SECQUOIA/pyomo_jupyter_book/blob/main/";
+        const map = {
+          "material/pyomo-fundamentals/knapsack-example": "Material/Pyomo Fundamentals/1.1 Knapsack Example.ipynb",
+          "material.pyomo-fundamentals.knapsack-example": "Material/Pyomo Fundamentals/1.1 Knapsack Example.ipynb",
+          "material/pyomo-fundamentals/knapsack-with-improved-printing": "Material/Pyomo Fundamentals/1.2 Knapsack with improved printing.ipynb",
+          "material.pyomo-fundamentals.knapsack-with-improved-printing": "Material/Pyomo Fundamentals/1.2 Knapsack with improved printing.ipynb",
+          "material/pyomo-fundamentals/changing-data": "Material/Pyomo Fundamentals/1.3 Changing data.ipynb",
+          "material.pyomo-fundamentals.changing-data": "Material/Pyomo Fundamentals/1.3 Changing data.ipynb",
+          "material/pyomo-fundamentals/loading-data-from-excel": "Material/Pyomo Fundamentals/1.4 Loading data from Excel.ipynb",
+          "material.pyomo-fundamentals.loading-data-from-excel": "Material/Pyomo Fundamentals/1.4 Loading data from Excel.ipynb",
+          "material/pyomo-fundamentals/nlp-vs-mip": "Material/Pyomo Fundamentals/1.5 NLP vs MIP.ipynb",
+          "material.pyomo-fundamentals.nlp-vs-mip": "Material/Pyomo Fundamentals/1.5 NLP vs MIP.ipynb",
+          "material/pyomo-fundamentals/knapsack-problem-with-rules": "Material/Pyomo Fundamentals/2.1 Knapsack problem with rules.ipynb",
+          "material.pyomo-fundamentals.knapsack-problem-with-rules": "Material/Pyomo Fundamentals/2.1 Knapsack problem with rules.ipynb",
+          "material/pyomo-fundamentals/integer-formulation-of-the-knapsack-problem": "Material/Pyomo Fundamentals/2.2 Integer formulation of the knapsack problem.ipynb",
+          "material.pyomo-fundamentals.integer-formulation-of-the-knapsack-problem": "Material/Pyomo Fundamentals/2.2 Integer formulation of the knapsack problem.ipynb",
+          "material/pyomo-fundamentals/using-the-decorator-notation-for-rules": "Material/Pyomo Fundamentals/3.1 Using the decorator notation for rules.ipynb",
+          "material.pyomo-fundamentals.using-the-decorator-notation-for-rules": "Material/Pyomo Fundamentals/3.1 Using the decorator notation for rules.ipynb",
+          "material/pyomo-fundamentals/changing-parameter-values": "Material/Pyomo Fundamentals/3.2 Changing Parameter values.ipynb",
+          "material.pyomo-fundamentals.changing-parameter-values": "Material/Pyomo Fundamentals/3.2 Changing Parameter values.ipynb",
+          "material/pyomo-fundamentals/integer-cuts": "Material/Pyomo Fundamentals/3.3 Integer cuts.ipynb",
+          "material.pyomo-fundamentals.integer-cuts": "Material/Pyomo Fundamentals/3.3 Integer cuts.ipynb",
+          "material/pyomo-fundamentals/putting-it-all-together-with-the-lot-sizing-example": "Material/Pyomo Fundamentals/3.4 Putting it all together with the lot sizing example.ipynb",
+          "material.pyomo-fundamentals.putting-it-all-together-with-the-lot-sizing-example": "Material/Pyomo Fundamentals/3.4 Putting it all together with the lot sizing example.ipynb",
+          "material/pyomo-fundamentals/putting-it-all-together-with-the-lot-sizing-exampl": "Material/Pyomo Fundamentals/3.4 Putting it all together with the lot sizing example.ipynb",
+          "material.pyomo-fundamentals.putting-it-all-together-with-the-lot-sizing-exampl": "Material/Pyomo Fundamentals/3.4 Putting it all together with the lot sizing example.ipynb",
+          "material/nonlinear-exercises/alternative-initialization": "Material/Nonlinear Exercises/1.1 Alternative Initialization.ipynb",
+          "material.nonlinear-exercises.alternative-initialization": "Material/Nonlinear Exercises/1.1 Alternative Initialization.ipynb",
+          "material/nonlinear-exercises/evaluation-errors": "Material/Nonlinear Exercises/1.2 Evaluation errors.ipynb",
+          "material.nonlinear-exercises.evaluation-errors": "Material/Nonlinear Exercises/1.2 Evaluation errors.ipynb",
+          "material/nonlinear-exercises/alternative-formulations": "Material/Nonlinear Exercises/1.3 Alternative Formulations.ipynb",
+          "material.nonlinear-exercises.alternative-formulations": "Material/Nonlinear Exercises/1.3 Alternative Formulations.ipynb",
+          "material/nonlinear-exercises/reactor-design-problem": "Material/Nonlinear Exercises/1.4 Reactor design problem.ipynb",
+          "material.nonlinear-exercises.reactor-design-problem": "Material/Nonlinear Exercises/1.4 Reactor design problem.ipynb",
+          "material/dynamic-exercises/param-est1": "Material/Dynamic Exercises/param_est1.ipynb",
+          "material.dynamic-exercises.param-est1": "Material/Dynamic Exercises/param_est1.ipynb",
+          "material/dynamic-exercises/param-est2": "Material/Dynamic Exercises/param_est2.ipynb",
+          "material.dynamic-exercises.param-est2": "Material/Dynamic Exercises/param_est2.ipynb",
+          "material/dynamic-exercises/small-colloc": "Material/Dynamic Exercises/small_colloc.ipynb",
+          "material.dynamic-exercises.small-colloc": "Material/Dynamic Exercises/small_colloc.ipynb",
+          "material/dynamic-exercises/colloc-matrix": "Material/Dynamic Exercises/colloc_matrix.ipynb",
+          "material.dynamic-exercises.colloc-matrix": "Material/Dynamic Exercises/colloc_matrix.ipynb",
+          "material/dynamic-exercises/small-dae": "Material/Dynamic Exercises/small_dae.ipynb",
+          "material.dynamic-exercises.small-dae": "Material/Dynamic Exercises/small_dae.ipynb",
+          "material/dynamic-exercises/small-findiff": "Material/Dynamic Exercises/small_findiff.ipynb",
+          "material.dynamic-exercises.small-findiff": "Material/Dynamic Exercises/small_findiff.ipynb",
+          "material/gdp-exercises/strip-packing": "Material/GDP Exercises/strip_packing.ipynb",
+          "material.gdp-exercises.strip-packing": "Material/GDP Exercises/strip_packing.ipynb"
+        };
+
+        const ref = document.referrer || "";
+        if (!ref) {
+          window.location.replace(fallback);
+          return;
+        }
+
+        let refUrl;
+        try {
+          refUrl = new URL(ref);
+        } catch (err) {
+          window.location.replace(fallback);
+          return;
+        }
+
+        let parts = refUrl.pathname.split("/").filter(Boolean);
+        if (parts[0] === "pyomo_jupyter_book") {
+          parts = parts.slice(1);
+        }
+
+        if (parts.length === 0) {
+          window.location.replace(fallback);
+          return;
+        }
+
+        const last = parts[parts.length - 1].replace(/\.html$/i, "");
+        if (last === "index") {
+          parts = parts.slice(0, -1);
+        } else {
+          parts[parts.length - 1] = last;
+        }
+
+        if (parts.length === 0) {
+          window.location.replace(fallback);
+          return;
+        }
+
+        const keySlash = parts.join("/");
+        const keyDot = parts.join(".");
+        const nbPath = map[keySlash] || map[keyDot];
+        if (!nbPath) {
+          window.location.replace(fallback);
+          return;
+        }
+
+        window.location.replace(colabBlobBase + nbPath);
+      })();
+    </script>
+  </body>
+</html>

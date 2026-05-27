@@ -12,8 +12,8 @@ This is a Jupyter Book project that converts Pyomo workshop materials into an in
 
 ## Project Structure
 - `Material/` contains the Jupyter notebooks organized by topic.
-- `_config.yml` is the Jupyter Book configuration.
-- `_toc.yml` is the table of contents structure.
+- `myst.yml` is the primary Jupyter Book 2 configuration and table of contents.
+- `_config.yml` is retained only as a legacy Jupyter Book 1 compatibility file.
 - `requirements.in` contains direct Python dependency inputs.
 - `requirements.txt` is the generated pinned Python dependency lock.
 - `venv_requirements.txt` is a compatibility alias that delegates to `requirements.txt`.
