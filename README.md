@@ -11,12 +11,17 @@ Find the companion website [here](https://secquoia.github.io/pyomo_jupyter_book/
 
 
 ### How to build locally
-Ensure you've opened the directory of the jupyter-book as the working directory. You should have a _config.yml and _toc.yml file in this directory. Make sure you're in a virtual environment, then install the project dependencies:
+Ensure you've opened the directory of the jupyter-book as the working directory. You should have a `myst.yml` file in this directory. Make sure you're in a virtual environment, then install the project dependencies:
 `pip install -r requirements.txt`
 then build the current working directory into a jupyter-book:
-`jupyter-book build ./`
+`jupyter book build --html --ci`
 
-The html is in the folder `_build\html\` and you can preview the book by opening the file `_build\html\index.html` in your browser, using VSCode's preview functionality (recommended), or running a the file via a browser executable in command line.
+The Jupyter Book 2 build renders the committed notebook outputs by default and does not re-execute notebooks on every build. Use `jupyter book build --html --execute --ci` only when intentionally refreshing notebook outputs.
+
+The html is in the folder `_build/html/` and you can preview the book by opening the file `_build/html/index.html` in your browser, using VSCode's preview functionality (recommended), or running a the file via a browser executable in command line.
+
+To build the LaTeX export configured in `myst.yml`, run:
+`jupyter book build --tex --ci`
 
 Following this, to deploy your build to the github page, we will be using the `ghp-import` library.
 

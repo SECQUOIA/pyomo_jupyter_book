@@ -26,9 +26,9 @@ def config_file():
 
 
 @pytest.fixture
-def toc_file():
-    """Return the _toc.yml file path."""
-    return PROJECT_ROOT / "_toc.yml"
+def myst_file():
+    """Return the myst.yml file path."""
+    return PROJECT_ROOT / "myst.yml"
 
 
 @pytest.fixture

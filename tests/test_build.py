@@ -1,21 +1,62 @@
 """Test the building of the Jupyter Book."""
 
-import pytest
+import json
 import subprocess
 import shutil
 import yaml
 
+JUPYTER_BOOK_BUILD = ["jupyter", "book", "build", "--html", "--ci"]
+JUPYTER_BOOK_CLEAN = ["jupyter", "book", "clean", "--html", "--yes"]
+
+
+def clean_html_build_outputs(build_dir):
+    """Remove generated book outputs before a Jupyter Book 2 build test."""
+    if not build_dir.exists():
+        return
+
+    for child_name in ("html", "site", "exports", "temp"):
+        child = build_dir / child_name
+        if child.is_dir():
+            shutil.rmtree(child)
+        elif child.exists():
+            child.unlink()
+
+
+def toc_entries(entries):
+    """Yield all entries from a MyST table of contents."""
+    for entry in entries:
+        yield entry
+        yield from toc_entries(entry.get("children", []))
+
+
+def assert_colab_redirect_matches_built_notebook_slugs(project_root, html_dir):
+    """Assert the static Colab redirect covers generated notebook URLs."""
+    with open(html_dir / "config.json", "r", encoding="utf-8") as f:
+        site_config = json.load(f)
+
+    project = site_config["projects"][0]
+    page_entries = list(toc_entries(project["toc"]))[1:]
+
+    with open(project_root / "colab.html", "r", encoding="utf-8") as f:
+        colab_redirect = f.read()
+
+    assert len(page_entries) == len(project["pages"])
+    for entry, page in zip(page_entries, project["pages"]):
+        if not entry.get("file", "").endswith(".ipynb"):
+            continue
+
+        slash_slug = page["slug"].replace(".", "/")
+        assert page["slug"] in colab_redirect
+        assert slash_slug in colab_redirect
+
 
 def test_jupyter_book_build(project_root):
     """Test that the Jupyter Book can be built successfully."""
-    # Clean previous build if it exists
     build_dir = project_root / "_build"
-    if build_dir.exists():
-        shutil.rmtree(build_dir)
+    clean_html_build_outputs(build_dir)
 
-    # Try to build the book (without --quiet as it may not be supported in all versions)
     result = subprocess.run(
-        ["jupyter-book", "build", str(project_root)],
+        JUPYTER_BOOK_BUILD,
         capture_output=True,
         text=True,
         cwd=project_root,
@@ -31,51 +72,48 @@ def test_jupyter_book_build(project_root):
     index_file = html_dir / "index.html"
     assert index_file.exists(), "index.html was not created"
 
-    # Check for intro.html which is the actual content page
-    intro_file = html_dir / "intro.html"
-    assert intro_file.exists(), "intro.html was not created"
+    # Jupyter Book 2 renders the first TOC entry as the site index.
+    intro_file = html_dir / "index.html"
 
-    # Check that intro.html has reasonable content
     with open(intro_file, "r", encoding="utf-8") as f:
         content = f.read()
 
-    assert len(content) > 1000, "intro.html appears to be too small"
-    assert "<html" in content.lower(), "intro.html doesn't appear to be valid HTML"
+    assert len(content) > 1000, "index.html appears to be too small"
+    assert "<html" in content.lower(), "index.html doesn't appear to be valid HTML"
+    assert "Pyomo Workshop" in content
+
+    assert_colab_redirect_matches_built_notebook_slugs(project_root, html_dir)
 
 
 def test_config_validation(project_root):
     """Test that Jupyter Book configuration is valid."""
-    # Validate _config.yml by loading it
-    config_file = project_root / "_config.yml"
+    config_file = project_root / "myst.yml"
     with open(config_file, "r") as f:
         config = yaml.safe_load(f)
 
-    # Check for essential config fields
-    assert "title" in config, "Config must have a title"
-    # Config is valid if we can load it without errors
+    assert config["version"] == 1
+    assert "project" in config, "Config must have project metadata"
+    assert "toc" in config["project"], "Config must have a table of contents"
     assert config is not None, "Config file is empty or invalid"
 
 
 def test_toc_validation(project_root):
     """Test that table of contents is properly structured."""
-    # Validate _toc.yml by loading it
-    toc_file = project_root / "_toc.yml"
-    with open(toc_file, "r") as f:
-        toc = yaml.safe_load(f)
+    config_file = project_root / "myst.yml"
+    with open(config_file, "r") as f:
+        config = yaml.safe_load(f)
 
-    # Check for essential TOC structure
+    toc = config["project"]["toc"]
     assert toc is not None, "TOC file is empty or invalid"
-    # Most TOCs have either 'chapters' or 'parts' or 'format'
-    assert any(
-        key in toc for key in ["chapters", "parts", "format", "root"]
-    ), "TOC must have expected structure (chapters, parts, format, or root)"
+    assert toc[0]["file"] == "intro.md"
+    assert any(entry.get("children") for entry in toc), "TOC must have nested entries"
 
 
 def test_clean_build(project_root):
     """Test that cleaning and rebuilding works."""
     # First build
     result1 = subprocess.run(
-        ["jupyter-book", "build", str(project_root)],
+        JUPYTER_BOOK_BUILD,
         capture_output=True,
         text=True,
         cwd=project_root,
@@ -84,7 +122,7 @@ def test_clean_build(project_root):
 
     # Clean
     result2 = subprocess.run(
-        ["jupyter-book", "clean", str(project_root)],
+        JUPYTER_BOOK_CLEAN,
         capture_output=True,
         text=True,
         cwd=project_root,
@@ -102,7 +140,7 @@ def test_clean_build(project_root):
 
     # Rebuild
     result3 = subprocess.run(
-        ["jupyter-book", "build", str(project_root)],
+        JUPYTER_BOOK_BUILD,
         capture_output=True,
         text=True,
         cwd=project_root,
