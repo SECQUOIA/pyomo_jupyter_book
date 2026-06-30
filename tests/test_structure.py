@@ -110,7 +110,7 @@ def test_myst_file_valid(myst_file, material_dir):
     assert tex_export["output"] == "_build/exports/book.tex"
 
 
-def test_requirements_file_exists(requirements_file):
+def test_requirements_file_exists(project_root, requirements_file):
     """Test that requirements.txt exists and has basic dependencies."""
     assert requirements_file.exists(), "requirements.txt is missing"
 
@@ -124,7 +124,15 @@ def test_requirements_file_exists(requirements_file):
             dep in requirements
         ), f"Essential dependency {dep} missing from requirements.txt"
 
-    assert "jupyter-book==2.1.0" in requirements
+    requirements_in_path = project_root / "requirements.in"
+    requirements_in = requirements_in_path.read_text().lower().splitlines()
+    jupyter_book_pins = [
+        line.strip()
+        for line in requirements_in
+        if line.strip().startswith("jupyter-book==")
+    ]
+    assert len(jupyter_book_pins) == 1
+    assert jupyter_book_pins[0] in requirements
 
 
 def test_material_directory_structure(material_dir):
