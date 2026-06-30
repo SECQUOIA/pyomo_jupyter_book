@@ -27,7 +27,7 @@ jobs:
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Install system dependencies
       run: |
@@ -35,7 +35,7 @@ jobs:
         sudo apt-get install -y -qq glpk-utils coinor-cbc
 
     - name: Setup Micromamba for IPOPT installation
-      uses: mamba-org/setup-micromamba@v1
+      uses: mamba-org/setup-micromamba@v3
       with:
         environment-name: solvers
         create-args: >-
@@ -48,12 +48,12 @@ jobs:
         echo "${MAMBA_ROOT_PREFIX}/envs/solvers/bin" >> $GITHUB_PATH
 
     - name: Set up Python 3.11
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: 3.11
 
     - name: Set up Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: "20"
 
@@ -81,7 +81,7 @@ jobs:
     # Upload build logs if there were warnings
     - name: Upload build reports
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: build-reports
         path: |
@@ -90,11 +90,11 @@ jobs:
 
     # Upload the book's HTML as an artifact
     - name: Upload Pages artifact
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v5
       with:
         path: "_build/html"
 
     # Deploy the book's HTML to GitHub Pages
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v4
+      uses: actions/deploy-pages@v5
