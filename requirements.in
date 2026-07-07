@@ -1,4 +1,4 @@
-jupyter-book==2.1.5
+jupyter-book==2.1.6
 matplotlib
 numpy
 pandas
