@@ -41,4 +41,10 @@ The -p and -f tags indicate force pushing this branch after committing it.
 Edit `requirements.in` when adding or removing direct dependencies. The pinned `requirements.txt` file is generated with uv:
 `uv pip compile requirements.in --universal --python-version 3.11 -o requirements.txt`
 
+For maintenance PRs:
+- Commit `requirements.in` and the regenerated `requirements.txt` together.
+- Keep security floors for vulnerable transitive dependencies in `requirements.in` so future compiles preserve the patched minimums.
+- Verify that the generated lock remains compatible with the workflow Python version, currently Python 3.11. Some current packages require Python-version markers for Python 3.11 and Python 3.12+ compatibility.
+- Treat Dependabot dependency and GitHub Actions updates as normal PRs: require green `test`, `lint`, and `build-and-test-deployment` checks before merging.
+
 The `venv_requirements.txt` file is kept as a compatibility alias for older setup notes and delegates to `requirements.txt`.
