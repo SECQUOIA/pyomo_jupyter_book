@@ -164,7 +164,7 @@ packaging==26.2
     #   matplotlib
     #   nbconvert
     #   pytest
-pandas==3.0.3
+pandas==3.0.5
     # via -r requirements.in
 pandocfilters==1.5.1
     # via nbconvert
