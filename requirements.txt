@@ -128,7 +128,7 @@ nbconvert==7.17.1
     # via
     #   -r requirements.in
     #   jupyter-server
-nbformat==5.10.4
+nbformat==5.11.0
     # via
     #   -r requirements.in
     #   jupyter-server
@@ -145,7 +145,7 @@ numpy==2.4.6 ; python_full_version < '3.12'
     #   matplotlib
     #   pandas
     #   scipy
-numpy==2.5.1 ; python_full_version >= '3.12'
+numpy==2.5.2 ; python_full_version >= '3.12'
     # via
     #   -r requirements.in
     #   contourpy
@@ -269,7 +269,7 @@ terminado==0.18.1
     #   jupyter-server-terminals
 tinycss2==1.4.0
     # via bleach
-tornado==6.5.7
+tornado==6.5.8
     # via
     #   -r requirements.in
     #   ipykernel
