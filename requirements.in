@@ -12,5 +12,5 @@ pyyaml
 
 # Security floors for transitive dependencies flagged by Dependabot.
 bleach>=6.4.0
-jupyter-server>=2.20.0
+jupyter-server>=2.21.0
 tornado>=6.5.8
