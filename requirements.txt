@@ -2,7 +2,7 @@
 #    uv pip compile requirements.in --universal --python-version 3.11 -o requirements.txt
 anyio==4.13.0
     # via jupyter-server
-appnope==0.1.4 ; sys_platform == 'darwin'
+appnope==1.0.0 ; sys_platform == 'darwin'
     # via ipykernel
 argon2-cffi==25.1.0
     # via jupyter-server
@@ -98,7 +98,7 @@ jupyter-core==5.9.1
     #   nbformat
 jupyter-events==0.12.1
     # via jupyter-server
-jupyter-server==2.20.0
+jupyter-server==2.21.0
     # via
     #   -r requirements.in
     #   jupyter-book
@@ -128,7 +128,7 @@ nbconvert==7.17.1
     # via
     #   -r requirements.in
     #   jupyter-server
-nbformat==5.11.0
+nbformat==5.11.1
     # via
     #   -r requirements.in
     #   jupyter-server
@@ -251,7 +251,7 @@ rpds-py==0.30.0
     #   referencing
 scipy==1.17.1 ; python_full_version < '3.12'
     # via -r requirements.in
-scipy==1.18.0 ; python_full_version >= '3.12'
+scipy==1.18.1 ; python_full_version >= '3.12'
     # via -r requirements.in
 send2trash==2.1.0
     # via jupyter-server
