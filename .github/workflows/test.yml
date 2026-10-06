@@ -65,6 +65,9 @@ jobs:
       run: |
         pytest tests/test_structure.py -v
 
+    - name: Test Dependabot merge safeguards
+      run: pytest tests/test_dependabot_auto_merge.py -v
+
     - name: Run build tests
       run: |
         pytest tests/test_build.py -v
