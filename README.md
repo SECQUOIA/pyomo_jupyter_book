@@ -45,6 +45,10 @@ For maintenance PRs:
 - Commit `requirements.in` and the regenerated `requirements.txt` together.
 - Keep security floors for vulnerable transitive dependencies in `requirements.in` so future compiles preserve the patched minimums.
 - Verify that the generated lock remains compatible with the workflow Python version, currently Python 3.11. Some current packages require Python-version markers for Python 3.11 and Python 3.12+ compatibility.
-- Treat Dependabot dependency and GitHub Actions updates as normal PRs: require green `test`, `lint`, and `build-and-test-deployment` checks before merging.
+- Dependabot dependency and GitHub Actions PRs merge automatically after `test`, `lint`, and `build-and-test-deployment` pass on the current PR head. Other pending or failing checks and requested changes block automation.
+
+The `Merge Dependabot PRs` workflow handles the required bot approval, updates stale branches, and approves CI runs paused after the lockfile-refresh bot pushes a commit. It checks only Dependabot PRs from this repository and executes automation from the default branch. A successful merge explicitly dispatches the book deployment. The workflow runs on PR and CI events, retries twice an hour, and can also be run manually for existing PRs.
+
+Repository settings must allow Actions to approve pull requests. Keep the three required status checks and the up-to-date branch requirement enabled; the automation does not bypass branch protection. Human-authored PRs retain their existing review requirements.
 
 The `venv_requirements.txt` file is kept as a compatibility alias for older setup notes and delegates to `requirements.txt`.
