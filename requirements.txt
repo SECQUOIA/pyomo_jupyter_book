@@ -124,7 +124,7 @@ mistune==3.3.3
     # via nbconvert
 nbclient==0.10.4
     # via nbconvert
-nbconvert==7.17.1
+nbconvert==7.17.2
     # via
     #   -r requirements.in
     #   jupyter-server
@@ -216,7 +216,7 @@ python-dateutil==2.9.0.post0
     #   pandas
 python-json-logger==4.1.0
     # via jupyter-events
-pywinpty==3.0.5 ; os_name == 'nt'
+pywinpty==3.1.0 ; os_name == 'nt'
     # via
     #   jupyter-server
     #   jupyter-server-terminals
