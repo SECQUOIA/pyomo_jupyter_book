@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: test-pr-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -22,6 +26,8 @@ jobs:
       uses: actions/setup-python@v7
       with:
         python-version: 3.11
+        cache: pip
+        cache-dependency-path: requirements.txt
 
     - name: Install uv
       run: |
@@ -41,6 +47,8 @@ jobs:
       uses: mamba-org/setup-micromamba@v3
       with:
         environment-name: solvers
+        cache-environment: true
+        cache-downloads: true
         create-args: >-
           -c conda-forge
           ipopt
@@ -163,6 +171,8 @@ jobs:
       uses: mamba-org/setup-micromamba@v3
       with:
         environment-name: solvers
+        cache-environment: true
+        cache-downloads: true
         create-args: >-
           -c conda-forge
           ipopt
