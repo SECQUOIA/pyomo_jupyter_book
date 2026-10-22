@@ -9,7 +9,7 @@ on:
     types: [completed]
   # Retry when other checks finish later, and update PRs after another PR merges.
   schedule:
-    - cron: "17,47 * * * *"
+    - cron: "17 9 * * *"
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,10 @@ jobs:
       github.repository == 'SECQUOIA/pyomo_jupyter_book' &&
       (github.event_name != 'pull_request_target' ||
        (github.event.pull_request.user.login == 'dependabot[bot]' &&
-        github.event.pull_request.head.repo.full_name == github.repository))
+        github.event.pull_request.head.repo.full_name == github.repository)) &&
+      (github.event_name != 'workflow_run' ||
+       github.event.workflow_run.actor.login == 'dependabot[bot]' ||
+       startsWith(github.event.workflow_run.head_branch, 'dependabot/'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
