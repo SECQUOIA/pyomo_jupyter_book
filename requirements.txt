@@ -145,7 +145,7 @@ numpy==2.4.6 ; python_full_version < '3.12'
     #   matplotlib
     #   pandas
     #   scipy
-numpy==2.5.4 ; python_full_version >= '3.12'
+numpy==2.5.5 ; python_full_version >= '3.12'
     # via
     #   -r requirements.in
     #   contourpy
@@ -202,7 +202,7 @@ pygments==2.20.0
     #   ipython-pygments-lexers
     #   nbconvert
     #   pytest
-pyomo==6.10.1
+pyomo==6.11.0
     # via -r requirements.in
 pyparsing==3.3.2
     # via matplotlib
@@ -221,7 +221,7 @@ pywinpty==3.1.2 ; os_name == 'nt'
     #   jupyter-server
     #   jupyter-server-terminals
     #   terminado
-pyyaml==6.0.3
+pyyaml==6.0.4
     # via
     #   -r requirements.in
     #   jupyter-events
@@ -269,7 +269,7 @@ terminado==0.18.1
     #   jupyter-server-terminals
 tinycss2==1.4.0
     # via bleach
-tornado==6.6
+tornado==6.6.1
     # via
     #   -r requirements.in
     #   ipykernel
